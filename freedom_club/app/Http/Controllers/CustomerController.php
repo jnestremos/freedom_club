@@ -236,7 +236,7 @@ class CustomerController extends Controller
 
     public function updateReturn(Request $request)
     {
-        // "_token" => "zUKwM3iaBEdT3n4KEWq6QtzIAIU38DansYQdY4rf"
+        // "_token" => "zUKwM3iaBEdT3n4KEWq6QtzIAIU38DansYQdY4rf"2
         // "receipt_number" => null
         // "acc_name" => null
         // "acc_number" => null
