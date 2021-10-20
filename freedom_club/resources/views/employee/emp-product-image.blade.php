@@ -72,7 +72,7 @@
                         @if ($image->image_main == 0)                                                
                         <input type="submit" class="form-control btn btn-success" value="Set as default">  
                         @else
-                        <button type="button" disabled class="form-control btn btn-secondary">Current default</button>                  
+                        <button type="button" disabled class="form-control btn btn-secondary" style="font-family:Montserrat">Current default</button>                  
                         @endif                  
                     </form>                                     
                   <form action="{{ url('/dashboard/product/images/delete/'.$image->id) }}" method="post">     

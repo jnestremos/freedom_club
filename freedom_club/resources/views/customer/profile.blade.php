@@ -19,7 +19,7 @@
     
 </style>
 
-    <div style="width: 100%; height:90vh; background-color: black; display:flex; justify-content:center; align-items:center">   
+    <div style="width: 100%; height:90vh; background-color: black; display:flex; justify-content:center; align-items:center; font-family: Bahnschrift">   
         <ul>    
             @if (session()->has('error'))
                 <li>{{ session('error') }}</li>
@@ -77,7 +77,12 @@
                 <input type="date" class="form-control" value="{{ auth()->user()->customer->cust_birthDate }}" style="width: 250px" name="cust_birthDate">
                 <br>
                 <button type="submit" class="btn btn-success">Save</button>
-                <button type="submit" class="btn btn-danger">Delete</button>
+                <form method="POST" action="{{ url('/profile/'.auth()->user()->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Deactivate</button>
+                </form>
+                
                 <div id="old_new_confirm" style="position: absolute; right:0%; top:20%; color:white" hidden>
                     <div style="display: flex">
                         <label for="old_password" style="width:50%">Old Password:</label>

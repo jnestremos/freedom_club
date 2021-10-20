@@ -384,8 +384,13 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deactivate(Request $request, $id)
     {
-        //
+        User::find($id)->delete();
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('loginCustomer.index');
     }
 }

@@ -285,6 +285,7 @@ Route::get('/show/{prod_type}/{prod_name}/{prod_color}/{prod_size}', [ProductCon
 Route::post('/cart', [CartController::class, 'store'])->middleware('auth')->name('cart.store');
 Route::get('/cart', [CartController::class, 'index'])->middleware('auth')->name('cart.index');
 Route::put('/cart/{id}', [CartController::class, 'update'])->middleware('auth')->name('cart.update');
+Route::delete('/cart/{id}', [CartController::class, 'delete'])->middleware('auth')->name('cart.delete');
 
 //Checkout Module
 //Route::post('/checkout', [CheckoutController::class, 'storeCart'])->middleware('auth')->name('checkout.storeCart');

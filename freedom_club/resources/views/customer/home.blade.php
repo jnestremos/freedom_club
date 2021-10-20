@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+<style>
+
+</style>
 @php
     use Illuminate\Support\Facades\DB;
     use App\Models\Product;    
@@ -93,7 +96,7 @@
     @endif
     @auth
     @if (!auth()->user()->email_verified_at && !auth()->user()->provider_id)
-    <div style="display: flex; color:red">We noticed that you still haven't confirmed your email yet, please check your email to verify your account. If you hadn't received a message, please click on this  
+    <div style="display: flex; color:red; font-family: Verdana">We noticed that you still haven't confirmed your email yet, please check your email to verify your account. If you hadn't received a message, please click on this  
         <form action="{{  url('/users/resendVerify/'.auth()->user()->id)  }}" method="POST">
             @csrf
             @method('PUT')
@@ -163,9 +166,9 @@
     </div>
     
 
-      <div class="product-section" style="width:100%; background-color:white;">
+      <div class="product-section" style="width:100%; background-color:white; font-family: Montserrat">
         <div style="width: 100%; display:flex; justify-content:center; margin-top: 20px">
-            <h2 style="color: black">ALL PRODUCTS</h2>            
+            <h2 style="color: black; font-family:MontserratExtraBold">ALL PRODUCTS</h2>            
         </div>
         <div class="product-cards" style="width: 100%; display:flex; flex-wrap:wrap">
             <div class="row mt-4" style="width:100%; display:flex;">

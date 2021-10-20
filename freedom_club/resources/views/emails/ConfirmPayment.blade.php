@@ -5,13 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
+<style>
+    @font-face {        
+    font-family: Akira;
+    src: url('{{ asset('storage/fonts/Akira Expanded Demo.otf') }}');
+    }
+</style>
 <body style="font-family: Arial">  
     @php
         use App\Models\Product;
     @endphp      
     {{-- Click the link <a href="{{ url('/checkout/confirm/'.$IDArrayJoin) }}">here</a> to update your payment status. --}}
     <div style="display: flex; flex-wrap:wrap; width:80%;">
-        <h2 style="width:90%; margin-left:20px">FRDM</h2>
+        <h2 style="width:90%; margin-left:20px; font-family:Akira">FRDM</h2>
         <h2>Invoice</h2>
     </div>
     <div style="display: flex; flex-wrap:wrap; width:80%; padding:20px; background-color:grey;">
@@ -66,19 +72,6 @@
             </div>
         </div>
    </div>
-    
-  
-    Invoice # {{ $invoice_num }}
-    <br>
-    Account Holder Name: {{ $acc_name }}
-    <br>
-    Account Number: {{ $acc_number }}
-    Order Summary:
-    <br>
-    @foreach ($prod_names as $index => $item)
-        {{ $item }}: {{ $prod_subtotals[$index] }}
-        <br>
-    @endforeach
-    {{ $total }}
+      
 </body>
 </html>

@@ -1,27 +1,34 @@
 @if ($link)
     @if ($disabled == 'true')
-    <div style="background-color: black; color:white; opacity:0.5; text-decoration:none; width:210px; height:50px; border-radius:10px; display:flex; justify-content:center; align-items:center;">
+    <div style="background-color: black; font-family:Bahnschrift; color:white; opacity:0.5; text-decoration:none; width:210px; height:50px; border-radius:10px; display:flex; justify-content:center; align-items:center;">
         {{ strtoupper($title) }}
     </div> 
     @else
-    <a href="{{ $link }}" style="background-color: black;  opacity:1; color:white; text-decoration:none; width:210px; height:50px; border-radius:10px; text-align:center; display:flex; justify-content:center; align-items:center;">
+    <a href="{{ $link }}" style="background-color: black; font-family:Bahnschrift;  opacity:1; color:white; text-decoration:none; width:210px; height:50px; border-radius:10px; text-align:center; display:flex; justify-content:center; align-items:center;">
         {{ strtoupper($title) }}
     </a>
     @endif    
 @else
     @if ($disabled == 'true')
-    <button disabled type="button" data-bs-toggle="modal" data-bs-target="{{'#' . $target }}" style="border:0; background-color: black; color:white; text-decoration:none; width:200px; height:50px; border-radius:10px; opacity:0.5; display:flex; justify-content:center; align-items:center;">
+    <button disabled type="button" data-bs-toggle="modal" data-bs-target="{{'#' . $target }}" style="border:0; font-family:Bahnschrift; background-color: black; color:white; text-decoration:none; width:200px; height:50px; border-radius:10px; opacity:0.5; display:flex; justify-content:center; align-items:center;">
         {{ strtoupper($title) }}
     </button>
     @else
         @if ($disabled == 'false')
-        <button type="button" data-bs-toggle="modal" data-bs-target="{{'#' . $target }}" style="border:0; background-color: black; color:white; text-decoration:none; width:200px; height:50px; border-radius:10px; opacity:1; display:flex; justify-content:center; align-items:center;">
+        <button type="button" data-bs-toggle="modal" data-bs-target="{{'#' . $target }}" style="border:0; font-family:Bahnschrift; background-color: black; color:white; text-decoration:none; width:200px; height:50px; border-radius:10px; opacity:1; display:flex; justify-content:center; align-items:center;">
             {{ strtoupper($title) }}
         </button>
         @endif
     @endif
 @endif
-
+<style>
+    .modal{
+        font-family: Bahnschrift;
+    }
+    .modal-title{
+        font-size:30px;
+    }
+</style>
 @if ($toggle == 'true')
     @if ($target == 'addSupplier')
     <div class="modal fade" id="{{$target}}" tabindex="-1" aria-labelledby="{{$target . "Label"}}" aria-hidden="true">

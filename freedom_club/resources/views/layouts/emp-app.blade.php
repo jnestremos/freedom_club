@@ -13,11 +13,37 @@
         
 </head>
 <style>
+  
+
+    @font-face {        
+    font-family: Akira;
+    src: url('{{ asset('storage/fonts/Akira Expanded Demo.otf') }}');
+    }
+    @font-face {        
+    font-family: Montserrat;
+    src: url('{{ asset('storage/fonts/Montserrat/Montserrat-Medium.ttf') }}');
+    }
+    @font-face {        
+    font-family: Bahnschrift;
+    src: url('{{ asset('storage/fonts/BAHNSCHRIFT.ttf') }}');
+    }
+    @font-face {        
+  font-family: MontserratExtraBold;
+  src: url('{{ asset('storage/fonts/Montserrat/Montserrat-ExtraBold.ttf') }}');
+  }
+    @font-face {        
+    font-family: Verdana;
+    src: url('{{ asset('storage/fonts/VERDANA.ttf') }}');
+    }
     html{
         padding: 0;
         margin: 0;
         box-sizing: border-box;
     }
+    .dataTables_wrapper {
+    font-family: Montserrat;
+    
+}
 </style>
 <body>
     
@@ -37,7 +63,7 @@
                 'Expenses', 'Balance Sheet', 'Order Line', 'Stock Transfer Requests', 'Supplier Purchase Records'];
             @endphp
             @for ($i = 0; $i < count($routeNames); $i++)
-                <a style="text-decoration:none;" href="{{ route($routeNames[$i]) }}"> <x-emp-side-button page="{{ $pages[$i] }}" :selected="$selected"/> </a>
+                <a style="text-decoration:none; font-family:Bahnschrift" href="{{ route($routeNames[$i]) }}"> <x-emp-side-button page="{{ $pages[$i] }}" :selected="$selected"/> </a>
             @endfor
                                     
         </div>
@@ -49,27 +75,27 @@
             @endif
                 @if (auth()->user()->employee->emp_firstName == 'admin' && auth()->user()->employee->emp_lastName == 'admin')
                 <div>
-                    <h6 style="color: red; font-size:14px; margin-left:20px; margin-top:5px">Please change your account credentials by clicking the profile icon!</h6>
+                    <h6 style="color: red; font-size:14px; margin-left:20px; margin-top:5px; font-family: Verdana">Please change your account credentials by clicking the profile icon!</h6>
                 </div>
                 @endif            
                 <div style="display:flex; justify-content:space-around; align-items:center; width:150px; margin-right:30px;">
-                    <div style="font-size:14px;">Help                
+                    <div style="font-size:14px; font-family:Verdana">Help                
                     </div>
                     <div style="font-size:14px;"> |                  
                     </div>
                     <div>
                         <form action="{{ route('logout.store') }}" method="POST"> 
                             @csrf 
-                            <input type="submit" value="Logout" style="font-size:14px; background-color:transparent; color:white; border:0"> 
+                            <input type="submit" value="Logout" style="font-size:14px; font-family:Verdana; background-color:transparent; color:white; border:0"> 
                         </form>
                     </div>   
                 </div>                 
             </div>
             <div style="height: 96%; width:100%; padding:20px">
                 <div style="height:7%; display:flex; align-items:center; justify-content:space-between; margin-bottom:15px">
-                    <h2>FRDM</h2>
+                    <h1 style="font-family: Akira;">FRDM</h1>
                     <div style="margin-right:30px; display:flex; align-items:center; justify-content:space-around; height:40px; width:200px;">
-                        <h6>{{auth()->user()->employee->emp_firstName. " " .auth()->user()->employee->emp_lastName}}</h6>
+                        <h6 style="font-family:Montserrat;"><b>{{auth()->user()->employee->emp_firstName. " " .auth()->user()->employee->emp_lastName}}</b></h6>
                         <a href="{{ url('/dashboard/profile/'.auth()->user()->id) }}" style="text-decoration: none; color:black;"><i style="font-size:35px;" class="far fa-user-circle"></i></a>
                     </div>                    
                 </div>                

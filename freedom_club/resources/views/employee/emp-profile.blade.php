@@ -11,7 +11,7 @@
     {{-- <x-emp-button-link link="{{ route('dashboard.suppliers') }}" title="View All Suppliers"></x-emp-button-link>                 --}}
 </div>
 
-<form action="{{ url('/dashboard/profile/'.auth()->user()->id) }}" method="post" enctype="multipart/form-data" style="height: 87%; width:100%; display:flex;">
+<form action="{{ url('/dashboard/profile/'.auth()->user()->id) }}" method="post" enctype="multipart/form-data" style="height: 87%; width:100%; display:flex; font-family:Bahnschrift">
     @csrf
     @method("PUT")
     <div style="height: 100%; width:40%; display:flex; flex-direction:column; justify-content:space-around;">

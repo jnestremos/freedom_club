@@ -53,4 +53,9 @@ class CartController extends Controller
         ]);
         return redirect()->route('cart.index');
     }
+    public function delete($id)
+    {
+        Cart::find($id)->delete();
+        return redirect()->route('cart.index');
+    }
 }

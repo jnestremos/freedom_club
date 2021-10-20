@@ -18,10 +18,10 @@
     }  
     $items = Cart::where('user_id', auth()->user()->id)->where('pending' , null)->simplePaginate(2);     
 @endphp
-    <div style="width:100%; height:90vh; display:flex; flex-direction:column; justify-content:center; align-items:center">        
+    <div style="width:100%; height:90vh; display:flex; flex-direction:column; justify-content:center; align-items:center; font-family: Bahnschrift">        
         <div style="width: 90%; border:3px solid black">
             <div style="width: 100%; ">
-                <h3 style="text-align:center; background-color:black; color:white; padding-top:20px; padding-bottom:20px;"><i>My Cart</i></h3>
+                <h3 style="text-align:center; background-color:black; color:white; padding-top:20px; padding-bottom:20px; font-family: MontserratExtraBold">My Cart</h3>
                 <h4 style="text-align:center; padding-top:10px; padding-bottom:10px; ">Total Items ({{ count(Cart::where('user_id', auth()->user()->id)->where('pending' , null)->get()) }})</h4>
                 @if (count(Cart::where('user_id', auth()->user()->id)->where('pending' , null)->get()) == 0)              
                     <div style="display: flex; justify-content:space-between; border-top:3px solid black; justify-content:center; align-items:center; width:100%; padding-bottom:30px; padding-top:30px;">
@@ -40,7 +40,11 @@
                                 <h2>{{ Product::find($cart_item->product_id)->prod_name }}</h2>
                                 <h5 style="color:grey">Color: {{ $color->name(Product::find($cart_item->product_id)->prod_color)['name'] }}</h5>
                                 <h5 style="color:grey">Size: {{ Product::find($cart_item->product_id)->prod_size }}</h5>
-                                <h6 style="position: absolute; bottom:0%">Remove</h6>
+                                <form method="POST" action="{{ url('/cart/'. $cart_item->id) }}" style="position: absolute; bottom:0%">
+                                    @csrf
+                                    @method("DELETE")                                    
+                                    <button type="submit" style="border:0px; background-color:transparent;">Remove</button>
+                                </form>
                             </div>
                         </div>                    
                         <form method="POST" class="form" action="{{ url('/cart/'. $cart_item->id) }}" style="width:100%; display:flex; justify-content:center">

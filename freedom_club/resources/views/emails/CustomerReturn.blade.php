@@ -6,12 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+<style>
+    @font-face {        
+    font-family: Akira;
+    src: url('{{ asset('storage/fonts/Akira Expanded Demo.otf') }}');
+    }
+</style>
 <body>
     Request #{{ $salesReturn->request_number }}
 </body>
 <body style="font-family: Arial">
     <div>
-        <h1 style="text-align: center">FREEDOM CLUB</h1>
+        <h1 style="text-align: center; font-family:Akira">FREEDOM CLUB</h1>
     </div>
     <br>
     <div style="margin-left:50px;width:40%;">

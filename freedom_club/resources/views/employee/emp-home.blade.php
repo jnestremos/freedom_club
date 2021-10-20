@@ -37,12 +37,12 @@
     <div id="slot" style="display:block;">        
 
     </div>
-    <div style="position: absolute; left:0%; bottom:10%;">
+    <div style="position: absolute; left:0%; bottom:10%; font-family: Bahnschrift;">
         Total Balance: {{ DB::table('balance_sheet')->get()[count(DB::table('balance_sheet')->get()) - 1]->total_balance }}
     </div>
     
     <div style="position: absolute; right:5%; bottom:5%;">
-        <a href="{{ route('carousel.index') }}" style="color:black; text-decoration:none"><button class="btn btn-primary">Edit Carousel Images</button></a>
+        <a href="{{ route('carousel.index') }}" style="color:black; text-decoration:none; font-family: Bahnschrift;"><button class="btn btn-primary">Edit Carousel Images</button></a>
     </div>    
 </div>
 
@@ -88,16 +88,19 @@
         })
         var i = document.createElement('i')
         slot.innerText = 'Computed Net Sales: Php ' + total + ' '
+        slot.style.fontFamily = 'Bahnschrift'
         if(total > 0){
             i.className = 'fas fa-caret-up'
-            i.style.color = 'green'
+            i.style.color = 'green'            
             slot.appendChild(i)
         }
         else if(total < 0){
             i.className = 'fas fa-caret-down'
-            i.style.color = 'red'
+            i.style.color = 'red'            
             slot.appendChild(i)
-        }        
+        }   
+        Chart.defaults.font.family = 'Bahnschrift'     
+        Chart.defaults.font.size = 13
         var myChart1 = document.getElementById('myChart1').getContext('2d');
         var myChart2 = document.getElementById('myChart2').getContext('2d');        
         var monthlyChart1 = new Chart(myChart1, {
@@ -117,7 +120,13 @@
                         text: 'Overall Gross Sales',                        
                     },
                     legend:{
-                        display:false
+                        display:false,
+                        labels:{
+                            font:{
+                                family:'Bahnschrift',
+                                size: 20
+                            }
+                        }
                     }
                 }
             }
@@ -137,6 +146,15 @@
                     title: {
                         display: true,
                         text: 'Monthly Gross Sales',                        
+                    },
+                    legend:{
+                        display:false,
+                        labels:{
+                            font:{
+                                family:'Bahnschrift',
+                                size: 20
+                            }
+                        }
                     }
                 }
             }
@@ -156,6 +174,15 @@
                     title: {
                         display: true,
                         text: 'Monthly Expenses',                        
+                    },
+                    legend:{
+                        display:false,
+                        labels:{
+                            font:{
+                                family:'Bahnschrift',
+                                size: 20
+                            }
+                        }
                     }
                 }
             }
@@ -190,6 +217,7 @@
 
         total = 0;
         slot.innerHTML = ''
+        slot.style.fontFamily = 'Bahnschrift'
         data.forEach(function(d){
             total = total + d
         })
@@ -198,14 +226,15 @@
         })
         var i = document.createElement('i')
         slot.innerText = 'Computed Net Sales: Php ' + total + ' '
+        slot.style.fontFamily = 'Bahnschrift'
         if(total > 0){
             i.className = 'fas fa-caret-up'
-            i.style.color = 'green'
+            i.style.color = 'green'        
             slot.appendChild(i)
         }
         else if(total < 0){
             i.className = 'fas fa-caret-down'
-            i.style.color = 'red'
+            i.style.color = 'red'        
             slot.appendChild(i)
         }    
 

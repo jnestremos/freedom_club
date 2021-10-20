@@ -9,7 +9,7 @@
         $subtotal = $subtotal + $item->subtotal;
     }
 @endphp
-    <div style="width: 100%; color:white; background-color:black; height:80vh;  display:flex; align-items:center; justify-content:center">
+    <div style="width: 100%; color:white; background-color:black; height:80vh;  display:flex; align-items:center; justify-content:center; font-family: Bahnschrift">
         <div style="height:90%; width:90%; display:flex; position: relative;">
             <div style="width: 50%">
                 <h2 style="margin-bottom: 20px">Shipping Address</h2>

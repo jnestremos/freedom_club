@@ -7,13 +7,13 @@
     $color = new ColorInterpreter();        
 @endphp
 
-   <div style="width: 100%; height:80vh;position: relative;">
+   <div style="width: 100%; height:80vh;position: relative; font-family: Bahnschrift">
     <div style="width: 95%; height:85%; display:flex; justify-content:center; margin:0 auto">
         <div style="height: 100%; width:40%; ">
             <img src="{{ asset('/storage/product_images/'. $product_image) }}" alt="" style="width: 100%; height:100%; border: 5px solid black;">
         </div>
         <div style="height: 100%; width:60%;">
-            <div style="background-color: black; padding-left:15px; height:5vh; color:white;font-size:25px; display:flex; align-items:center; margin-left:10px; font-style:italic; margin-bottom:30px">
+            <div style="background-color: black; padding-left:15px; height:5vh; color:white;font-size:25px; display:flex; font-family: MontserratExtraBold; align-items:center; margin-left:10px; margin-bottom:30px">
                 {{ $product->prod_name . ' (' . $color->name($product->prod_color)['name'] . ')'}}
             </div>
             <div style="display: flex; height:100%;">

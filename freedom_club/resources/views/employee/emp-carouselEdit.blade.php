@@ -33,7 +33,7 @@
         <x-emp-header title="CAROUSEL IMAGES"></x-emp-header>    
         <form action="{{ route('carousel.clear') }}" method="post">  
           @csrf               
-          <button type="submit" style="background-color: black; color:white; border:0; text-decoration:none; width:200px; height:50px; border-radius:10px; display:flex; justify-content:center; align-items:center;">CLEAR ALL PICTURES</button>
+          <button type="submit" style="background-color: black; color:white; border:0; text-decoration:none; width:200px; height:50px; border-radius:10px; display:flex; justify-content:center; align-items:center; font-family:Bahnschrift">CLEAR ALL PICTURES</button>
         </form>   
         <x-emp-button-link title="Add Picture" toggle='true' target='addPicture' :dataCollection="$dataCollections"></x-emp-button-link>        
     </div>

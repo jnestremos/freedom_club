@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
+<style>
+    @font-face {        
+    font-family: Akira;
+    src: url('{{ asset('storage/fonts/Akira Expanded Demo.otf') }}');
+    }
+</style>
 <body style="font-family: Arial">
     <div style="background-color: grey; padding:100px 40px">
-        <h1 style="text-align: center">FREEDOM CLUB</h1>
+        <h1 style="text-align: center; font-family:Akira">FREEDOM CLUB</h1>
         <h3 style="text-align: center">Password Reset</h3>
         <br>
         <h3 style="text-align: center">Hello!</h3>

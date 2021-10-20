@@ -15,7 +15,7 @@
         text-decoration: underline;
     }
 </style>
-<div style="width: 100%; height:90vh; background-color: black; display:flex; justify-content:center; align-items:center">   
+<div style="width: 100%; height:90vh; background-color: black; display:flex; justify-content:center; align-items:center; font-family: Bahnschrift">   
     <div style="width:90%; height:90%; display:flex; padding-top:30px">
         <div style="width:50%">            
             <h1 style="color: white">PURCHASE HISTORY</h1>

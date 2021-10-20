@@ -18,7 +18,7 @@
     }
     
 </style>
-    <div style="width: 100%; height:90vh; background-color: black; display:flex; justify-content:center; align-items:center">   
+    <div style="width: 100%; height:90vh; background-color: black; display:flex; justify-content:center; align-items:center; font-family: Bahnschrift">   
         
         <div style="width:90%; height:90%; display:flex; padding-top:30px">
             <form method="POST" action="{{ route('customer.updateReturn') }}" style="width:60%; position: relative;" enctype="multipart/form-data">

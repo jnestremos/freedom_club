@@ -4,6 +4,14 @@
     use App\Models\Supplier;
     $color = new ColorInterpreter();        
 @endphp
+<style>
+    tr th{
+        font-family: Montserrat;
+    }
+    td{
+        font-family: Bahnschrift;
+    }
+</style>
 @if ($title == 'Edit Supplier')
     <table id="example" class="hover" style="width: 100%;">            
         <thead>
@@ -690,9 +698,9 @@
                             <div class="modal-body">
                                 {{-- <input type="text" value="" hidden name="supp_transactions_id">--}}
                                 <div style="height:100%; width:100%; display: flex;">
-                                    <label style="width: 120px" for="transfer_id" class="form-label text-white">Transfer ID: </label>                                        
+                                    <label style="width: 120px" for="transfer_id" class="form-label text-white">Transfer #: </label>                                        
                                     <input type="text" hidden class="form-control" value="{{ $transfer->id }}" name="transfer_id" placeholder="Transfer ID" >
-                                    {{ $transfer->id }}
+                                    {{ $transfer->transfer_number }}
                                 </div>                    
                                 <div style="display: flex; margin-top:20px">
                                     <label for="stock_id" class="form-label text-white" style="margin-right:60px">Stock ID: </label> 
@@ -1271,7 +1279,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($dataCollection as $sales)        
+        @foreach ($dataCollection as $sale)        
             <tr>                                                            
                 <td>{{ $sale->sales_category }}</td>                                
                 <td>{{ $sale->total }}</td>                                                                                      
@@ -1472,6 +1480,44 @@
             <td>{{ $transfer->created_at }}</td>                                                                                                                               
             <td>{{ $transfer->updated_at }}</td>  
             </tr>
+        @endforeach
+    </tbody>           
+</table>
+@endif
+@if ($title == 'Balance Sheet')
+<table id="example" class="hover" style="width: 100%;">            
+    <thead>
+        <tr>
+            @foreach ($headers as $header)
+                <th>{{ $header }}</th>
+            @endforeach
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($dataCollection[0] as $balance)        
+        <tr>                                                            
+            <td>                                              
+                    {{ $balance->description }}                               
+            </td>                                
+            <td>
+                @if ($balance->debit_amount === null)
+                    0
+                @else
+                +{{ $balance->debit_amount }}
+                @endif
+                
+            </td>                                                                                      
+            <td>
+                @if ($balance->credit_amount === null)
+                    0
+                @else
+                -{{ $balance->credit_amount }}
+                @endif               
+            </td>                                                                                      
+            <td>{{ $balance->total_balance }}</td>                                    
+            <td>{{ $balance->created_at }}</td>                                                                                                                                                  
+            <td>{{ $balance->updated_at }}</td>                                                                                                                                                  
+        </tr> 
         @endforeach
     </tbody>           
 </table>

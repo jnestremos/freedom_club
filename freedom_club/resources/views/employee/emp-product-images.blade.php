@@ -14,7 +14,7 @@
     <x-emp-button-link title="View Product Images" :disabled='$disabled' link="{{ route('product.images') }}" :dataCollection="$dataCollections"></x-emp-button-link>         --}}
 </div>
 
-<div style="height: 86%;  width:100%; position: relative;">
+<div style="height: 86%;  width:100%; position: relative; font-family:Montserrat; font-size:14px">
     <div class="row">
         @foreach ($products as $product)
         @php    

@@ -11,7 +11,7 @@
         use App\Models\Supplier;                
         use App\Models\Material;                       
         use App\Models\SuppTransaction;                       
-        $dataCollections = [DB::table('material_transaction')->select('*')->get(), Supplier::all(), Material::all(), SuppTransaction::class]; 
+        $dataCollections = [DB::table('material_transaction')->select('*')->where('deleted_at', null)->get(), Supplier::all(), Material::all(), SuppTransaction::class]; 
         //dd($dataCollections[3]::find(1));            
         $headers = ['Transaction ID', 'Material Number', 'Material Type', 'Material Size', 'Material Color', 'Material Qty', 'Material Price', 'Created At', 'Updated At']                      
     @endphp

@@ -68,7 +68,6 @@ class DatabaseSeeder extends Seeder
         DB::table('balance_sheet')->insert([
             'description' => 'Starting Capital',
             'debit_amount' => 50000,
-            'credit_amount' => 0,
             'total_balance' => 50000,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

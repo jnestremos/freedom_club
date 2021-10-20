@@ -1,8 +1,15 @@
 @extends('layouts.app')
 @section('content')
-
+<style>
+    label{
+        font-family: Bahnschrift;
+    }
+    input{
+        font-family: Bahnschrift;
+    }
+</style>
     <div class="container-fluid position-relative" style="height: 90vh; width:100vw;">
-        <h1 class="position-absolute text-white" style="top:3%; left:10%">Register</h1>
+        <h1 class="position-absolute text-white" style="top:3%; left:10%; font-family: Bahnschrift">Register</h1>
         <form action="{{ route('registerCustomer.store') }}" method="post">
             @csrf
             <div class='position-absolute' style="top:10%; left:10%; width:80%;">
