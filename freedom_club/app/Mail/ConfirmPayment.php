@@ -28,6 +28,7 @@ class ConfirmPayment extends Mailable
     public $color;
     public $images = [];
     public $product_ids = [];
+    public $product_qtys = [];
 
     /**
      * Create a new message instance.
@@ -47,6 +48,7 @@ class ConfirmPayment extends Mailable
         foreach ($array as $id) {
             $product_id = Cart::find($id)->product_id;
             array_push($this->product_ids, $product_id);
+            array_push($this->product_qtys, Cart::find($id)->quantity);
             $prod_name_color_id = DB::table('prod_name_color')->where('product_id', $product_id)->first()->id;
             $image = DB::table('product_images')->where('prod_name_color_id', $prod_name_color_id)->first()->product_image;
             array_push($this->images, $image);

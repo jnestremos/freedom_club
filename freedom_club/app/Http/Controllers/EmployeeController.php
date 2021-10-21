@@ -95,7 +95,7 @@ class EmployeeController extends Controller
 
 
         $user->attachRole($role);
-        Mail::to($request->email)->send(new VerifyUser($user));
+        //Mail::to($request->email)->send(new VerifyUser($user));
         //event(new Registered($user));
 
 
@@ -239,6 +239,19 @@ class EmployeeController extends Controller
         } else {
             return redirect()->route('dashboard.employees')->with('error', 'Update not successful! Please do it again!');
         }
+    }
+
+    public function delete($id)
+    {
+        Employee::where('user_id', $id)->delete();
+        User::find($id)->delete();
+        return redirect()->route('dashboard.employees');
+    }
+    public function restore($id)
+    {
+        Employee::where('user_id', $id)->restore();
+        User::find($id)->restore();
+        return redirect()->route('dashboard.employees');
     }
 
     /**

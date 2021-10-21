@@ -65,6 +65,7 @@ class ShipmentController extends Controller
                         'datePaid' => Carbon::now()
                     ]);
                     Shipment::create([
+                        'receipt_number' => 'REPLACE',
                         'supp_transactions_id' => $suppTransaction->id,
                         'shipping_fee' => 0
                     ]);

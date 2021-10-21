@@ -13,7 +13,7 @@
         $error = [];               
         $dataCollections = [Checkout::all(), Product::all(), Cart::all()]; 
         //dd($dataCollections[3]::find(1));            
-        $headers = ['Invoice #', 'Receipt #', 'Account Name', 'Account Number', 'Payment Method', 'Shipping Service', 'Tracking Number', 'Status', 'Total', 'Date of Checkout', 'Updated At'];                                    
+        $headers = ['Invoice #', 'Receipt #', 'Account Name', 'Account Number', 'Payment Method', 'Shipping Service', 'Tracking Number', 'Status', 'Total', 'Date of Checkout', 'Date Delivered', 'Updated At'];                                    
         if(count(DB::table('sales_returns')->get()) == 0){
             $disabled = 'true';
         }

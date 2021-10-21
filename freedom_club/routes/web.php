@@ -21,6 +21,7 @@ use App\Mail\RemindPayment;
 use App\Mail\TransferRequest;
 use App\Models\Checkout;
 use App\Models\Cart;
+use App\Models\Employee;
 use App\Models\Expense;
 use App\Models\Product;
 use App\Models\Shipment;
@@ -67,11 +68,14 @@ Route::post('/register/employee', [EmployeeController::class, 'store'])->middlew
 //Employee Profile
 Route::get('/dashboard/profile/{id}', [EmployeeController::class, 'show'])->middleware(['auth', 'role:store_owner|warehouse_manager|product_manager']);
 
+
 //Customer Profile
 Route::get('/profile', [CustomerController::class, 'show'])->middleware('auth')->name('customer.profile');
 Route::post('/profile/{id}', [CustomerController::class, 'update'])->middleware('auth')->name('customer.update');
+Route::delete('/profile/{id}', [CustomerController::class, 'deactivate'])->middleware('auth')->name('customer.deactivate');
 Route::get('/purchase-history', [CustomerController::class, 'showHistory'])->middleware('auth')->name('customer.showHistory');
 Route::get('/deliveries', [CustomerController::class, 'showDeliveries'])->middleware('auth')->name('customer.showDeliveries');
+Route::put('/deliveries/{id}', [CustomerController::class, 'updateDeliveries'])->middleware('auth')->name('customer.updateDeliveries');
 Route::get('/return', [CustomerController::class, 'return'])->middleware('auth')->name('customer.return');
 Route::post('/return', [CustomerController::class, 'updateReturn'])->middleware('auth')->name('customer.updateReturn');
 
@@ -270,6 +274,11 @@ Route::delete('/dashboard/materials/{id}', [MaterialController::class, 'delete']
 //Employee Profile Table
 Route::get('/dashboard/employees', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard.employees');
 Route::put('/dashboard/employees/{id}', [EmployeeController::class, 'update'])->middleware('auth')->name('employees.update');
+Route::get('/dashboard/employees/removed', function () {
+    return view('employee.emp-removed-employees', ['employees' => Employee::onlyTrashed()->get()]);
+})->middleware('auth')->name('employees.removed');
+Route::delete('/dashboard/employees/{id}', [EmployeeController::class, 'delete'])->middleware('auth')->name('employees.delete');
+Route::put('/dashboard/employees/restore/{id}', [EmployeeController::class, 'restore'])->middleware('auth')->name('employees.restore');
 
 //Stocks Route
 Route::get('/dashboard/stocks', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard.stocks');

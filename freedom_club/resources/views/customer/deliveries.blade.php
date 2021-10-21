@@ -13,15 +13,16 @@
 </style>
 <div style="width: 100%; height:90vh; background-color: black; display:flex; justify-content:center; align-items:center; font-family: Bahnschrift">   
     <div style="width:90%; height:90%; display:flex; padding-top:30px">
-        <div style="width:50%">            
+        <div style="width:70%">            
             <h1 style="color: white">DELIVERIES</h1>
             <div style="display: flex; width:100%; justify-content:space-between; align-items:center; color:white">
-                <div style="width: 20%">Invoice Number</div>
-                <div style="width: 20%">Receipt Number</div>
-                <div style="width: 20%">Shipping Service</div>
-                <div style="width: 20%;">Tracking Number</div>
-                <div style="width: 20%">Date Confirmed</div>
-                <div style="width: 20%">Total</div>
+                <div style="width: 14%">Invoice Number</div>
+                <div style="width: 14%">Receipt Number</div>
+                <div style="width: 14%">Shipping Service</div>
+                <div style="width: 14%;">Tracking Number</div>
+                <div style="width: 14%">Date Confirmed</div>
+                <div style="width: 14%">Total w/Shipping Fee</div>
+                <div style="width: 14%">Date Delivered</div>
             </div>    
             <br>        
             @if (count($cart_items) == 0)
@@ -29,18 +30,31 @@
             @else
             @foreach ($cart_items as $item)          
             <div style="display: flex; width:100%; justify-content:space-between; align-items:center; color:white">                                     
-                <div style="width: 20%;">{{ $item->invoice_number }}</div>
-                <div style="width: 20%;">{{ $item->receipt_number }}</div>
-                <div style="width: 20%;">{{ $item->shipping_service }}</div>
-                <div style="width: 20%;">{{ $item->tracking_number }}</div>
-                <div style="width: 20%;">{{ $item->updated_at }}</div>
-                <div style="width: 20%;">{{ $item->total }}</div>                                                   
-            </div>
+                <div style="width: 14%;">{{ $item->invoice_number }}</div>
+                <div style="width: 14%;">{{ $item->receipt_number }}</div>
+                <div style="width: 14%;">{{ $item->shipping_service }}</div>
+                <div style="width: 14%;">{{ $item->tracking_number }}</div>
+                @if ($item->updated_at == $item->created_at)
+                <div style="width: 14%;">PENDING</div>
+                @else
+                <div style="width: 14%;">{{ $item->updated_at }}</div>
+                @endif                
+                <div style="width: 14%;">{{ $item->total }}</div>  
+                @if ($item->dateReceived === null)
+                    <form action="{{ url('/deliveries/'.$item->id) }}" method="POST" style="width: 14%">
+                        @csrf
+                        @method("PUT")
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form> 
+                @else
+                <div style="width: 14%;">{{ $item->dateReceived }}</div>  
+                @endif                                                                              
+            </div>            
             <br>
             @endforeach  
             @endif            
         </div> 
-        <div style="width:50%; display:flex; flex-direction:column; align-items:flex-end">
+        <div style="width:30%; display:flex; flex-direction:column; align-items:flex-end">
             <a href="{{ route('customer.showHistory') }}" style="text-decoration: none"><h6 id="purchase_history" style="color: white">
                 Purchase History
             </h6></a>

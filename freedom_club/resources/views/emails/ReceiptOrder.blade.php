@@ -43,6 +43,7 @@
             <p>{{ $address }}</p>
             <p>PHL</p>
             <br>
+            <h4>Delivery Service: {{ $checkout->shipping_service }}</h4>
             <h4>Tracking # {{ $checkout->tracking_number }}</h4>
         </div>
     </div>
@@ -59,6 +60,7 @@
                 <h2>{{ $items[$index] }}</h2>
                 <h5>Color: {{ $color->name(Product::find($id)->prod_color)['name'] }}</h5>
                 <h5>Size: {{ Product::find($id)->prod_size }}</h5>                
+                <h5>Size: {{ $product_qtys[$index] }}</h5>                
             </div>
         </div>                                            
         <div style="height: 100%; display:flex; text-align:right; padding-right:30px; margin-top:20px;">

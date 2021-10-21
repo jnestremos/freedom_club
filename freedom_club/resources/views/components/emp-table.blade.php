@@ -26,10 +26,10 @@
                 <tr>                                                            
                     @if (!SuppTransaction::where('supplier_id', $supplier->id)->first())
                         <td style="display: flex; align-items:center;">
-                        <form action="{{ url('/dashboard/suppliers/' .$supplier->id) }}" method="POST">
+                        <form action="{{ url('/dashboard/suppliers/' .$supplier->id) }}" method="POST" id="supplier_delete_form">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" style="margin-right: 20px"><i class="fas fa-trash"></i></button>
+                            <button type="submit" class="btn btn-danger" style="margin-right: 20px" id="supplier_delete"><i class="fas fa-trash"></i></button>
                             <input type="text" class="display:none;" name="supplier_id" value="{{ $supplier->id }}" hidden>  
                         </form>
                     @else
@@ -49,7 +49,7 @@
                         <h5 class="modal-title" id="idLabel">{{ $title }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="{{ url('/dashboard/suppliers/'.$supplier->id) }}" method="POST">
+                        <form action="{{ url('/dashboard/suppliers/'.$supplier->id) }}" method="POST" id="edit_credential_form">
                             @csrf                   
                             @method("PUT")                                                                                                                                              
                             <div class="modal-body" style="height:300px">
@@ -70,7 +70,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <input type="submit" class="btn btn-primary" value="Edit Record">
+                                <input type="submit" class="btn btn-primary" value="Edit Credentials" id="edit_credentials">
                             </form>
                     </div>
                     </div>
@@ -93,10 +93,10 @@
         @foreach ($dataCollection as $material)
             <tr>
                 <td style="display: flex; align-items:center;">
-                    <form action="{{ url('/dashboard/materials/' .$material->id) }}" method="POST">
+                    <form action="{{ url('/dashboard/materials/' .$material->id) }}" method="POST" id="item_delete_form">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger" style="margin-right: 20px"><i class="fas fa-trash"></i></button>
+                        <button type="submit" class="btn btn-danger" style="margin-right: 20px"><i class="fas fa-trash" id="item_delete"></i></button>
                         <input type="text" name="material_id" value="{{ $material->id }}" hidden>  
                     </form>
                     <a href="" id="dataID" data-bs-toggle="modal" data-bs-target="{{ '#id'.$material->id }}">{{ $material->material_number }}</a>
@@ -116,7 +116,7 @@
                     <h5 class="modal-title" id="idLabel">{{ $title }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="{{ url('/dashboard/materials/' .$material->id) }}" method="POST">
+                    <form action="{{ url('/dashboard/materials/' .$material->id) }}" method="POST" id="edit_item_form">
                         @csrf                   
                         @method("PUT")                                                                                                                                              
                         <div class="modal-body" style="height:300px">
@@ -156,7 +156,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-primary" value="Edit Record">
+                            <input type="submit" class="btn btn-primary" value="Edit Record" id="edit_item">
                         </form>
                 </div>
                 </div>
@@ -180,10 +180,10 @@
         @if (auth()->user()->id != $employee->user_id)
             <tr>
                 <td style="display: flex; align-items:center;">
-                    <form action="{{ url('/dashboard/employees/' .$employee->user_id) }}" method="POST">
+                    <form action="{{ url('/dashboard/employees/' .$employee->user_id) }}" method="POST" id="employee_delete_form">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger" style="margin-right: 20px"><i class="fas fa-trash"></i></button>
+                        <button type="submit" class="btn btn-danger" style="margin-right: 20px" id="employee_delete"><i class="fas fa-trash"></i></button>
                         <input type="text" name="user_id" value="{{ $employee->user_id }}" hidden>  
                     </form>
                     <a href="" id="dataID" data-bs-toggle="modal" data-bs-target="{{ '#id'.$employee->user_id }}">{{ $employee->user_id }}</a>
@@ -205,7 +205,7 @@
                     <h5 class="modal-title" id="idLabel">{{ $title }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="{{ url('/dashboard/employees/' .$employee->user_id) }}" method="POST">
+                    <form action="{{ url('/dashboard/employees/' .$employee->user_id) }}" method="POST" id="employee_edit_form">
                         @csrf                   
                         @method("PUT")                                                                                                                                              
                         <div class="modal-body" style="height:300px">
@@ -249,7 +249,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-primary" value="Edit Record">
+                            <input type="submit" class="btn btn-primary" value="Edit Position" id="employee_edit">
                         </form>
                 </div>
                 </div>
@@ -450,8 +450,20 @@
     </thead>
     <tbody>
         @foreach ($dataCollection[0] as $shipment)        
+        @php
+        $check = true;
+            foreach($dataCollection[3] as $item){                
+                if($item->supp_transactions_id == $shipment->supp_transactions_id && $item->material_qty == 0){
+                    $check = false;
+                }
+                else if($item->supp_transactions_id == $shipment->supp_transactions_id && $item->material_qty != 0){
+                    $check = true;
+                    break;
+                }
+            }            
+        @endphp
             <tr>  
-                @if ($shipment->dateReceived == null)
+                @if ($shipment->dateReceived == null && $check)
                 <td style="display: flex; justify-content:center;">                    
                         <input type="text" name="user_id" value="{{ $shipment->id }}" hidden>                                         
                     <a href="" id="dataID" data-bs-toggle="modal" data-bs-target="{{ '#id'.$shipment->id }}">{{ $shipment->receipt_number }}</a>
@@ -460,9 +472,7 @@
                 <td style="display: flex; justify-content:center;">
                     {{ $shipment->receipt_number }}                                                                                                                              
                 </td>
-                @endif             
-                                                                                                                     
-                                                       
+                @endif                                                 
                 <td>
                     @if ($shipment->dateReceived)
                         {{ $shipment->dateReceived }}
@@ -525,7 +535,7 @@
                                             <select name="material_id" id="" class="form-select" style="width: 50%" disabled>
                                                 @foreach ($dataCollection[3] as $material_transaction)
                                                     @if ($shipment->supp_transactions_id == $material_transaction->supp_transactions_id && $material_transaction->material_qty > 0)
-                                                        <option value="{{ $material_transaction->material_id }}">{{ $material_transaction->material_id }}</option>
+                                                        <option value="{{ $material_transaction->material_id }}">{{ $material_transaction->material_number }}</option>
                                                     @endif
                                                 @endforeach
                                             </select>                                                                                
@@ -780,10 +790,10 @@
             <tr>       
                 @if ($product->prod_status != 1 && ($product->prod_qty < 0 || $product->prod_qty == null))
                 <td style="display: flex; align-items:center;">
-                    <form action="{{ url('/dashboard/products/'.$product->id) }}" method="POST">
+                    <form action="{{ url('/dashboard/products/'.$product->id) }}" method="POST" id="product_delete_form">
                         @csrf
                         @method("DELETE")
-                        <button type="submit" class="btn btn-danger" style="margin-right: 20px"><i class="fas fa-trash"></i></button>
+                        <button type="submit" class="btn btn-danger" style="margin-right: 20px" id="product_delete"><i class="fas fa-trash"></i></button>
                         <input type="text" name="user_id" value="{{ $product->id }}" hidden>   
                     </form>
                     {{ $product->product_number }}                   
@@ -1008,6 +1018,11 @@
                 </td>                    
                 <td>{{ $checkout->total }}</td>                                                          
                 <td>{{ $checkout->created_at }}</td>
+                @if ($checkout->dateReceived === null)
+                    <td>PENDING</td>                    
+                @else
+                    {{ $checkout->dateReceived }}
+                @endif
                 @if ($checkout->receipt_number === null)
                     <td>PENDING</td>  
                 @else
@@ -1553,6 +1568,38 @@
             </td>
             <td>{{ $return->created_at }}</td>                                                                                                                                                  
             <td>{{ $return->updated_at }}</td>                                                                                                                                                  
+        </tr> 
+        @endforeach
+    </tbody>           
+</table>
+@endif
+@if ($title == 'Removed Employees')
+<table id="example" class="hover" style="width: 100%;">            
+    <thead>
+        <tr>
+            @foreach ($headers as $header)
+                <th>{{ $header }}</th>
+            @endforeach
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($dataCollection as $employee)        
+        <tr>
+            <td style="display: flex; justify-content:center;">
+                <form action="{{ url('/dashboard/employees/restore/' .$employee->user_id) }}" method="POST" id="restore_form">
+                    @csrf
+                    @method('PUT')                    
+                    <input type="text" name="user_id" value="{{ $employee->user_id }}" hidden>  
+                    <a href="" id="dataID" data-bs-toggle="modal" data-bs-target="{{ '#id'.$employee->user_id }}">{{ $employee->user_id }}</a>
+                </form>                
+            </td>                                                               
+            <td>{{ $employee->emp_firstName }}</td>                        
+            <td>{{ $employee->emp_lastName }}</td>                        
+            <td>{{ $employee->emp_email }}</td>                        
+            <td>{{ $employee->emp_gender }}</td>                        
+            <td>{{ $employee->emp_birthDate }}</td>                                       
+            <td>{{ $employee->created_at }}</td>                                       
+            <td>{{ $employee->updated_at }}</td>                                       
         </tr> 
         @endforeach
     </tbody>           

@@ -18,6 +18,7 @@ class Checkout extends Model
         'invoice_number',
         'receipt_number',
         'emailStatus',
+        'dateReceived',
         'acc_name',
         'acc_num',
         'payment_method',

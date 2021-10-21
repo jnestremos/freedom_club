@@ -22,6 +22,7 @@ class ReceiptOrder extends Mailable
     public $subtotals = [];
     public $total = 0;
     public $product_ids = [];
+    public $product_qtys = [];
     public $images = [];
     public $email;
     public $address;
@@ -42,6 +43,7 @@ class ReceiptOrder extends Mailable
         $this->total = $checkout->total;
         foreach (Cart::where('checkout_id', $checkout->id)->get() as $item) {
             array_push($this->product_ids, $item->product_id);
+            array_push($this->product_qtys, $item->quantity);
             $prod_name_color_id = DB::table('prod_name_color')->where('product_id', $item->product_id)->first()->id;
             $image = DB::table('product_images')->where('prod_name_color_id', $prod_name_color_id)->first()->product_image;
             array_push($this->images, $image);

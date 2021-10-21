@@ -80,14 +80,14 @@ class CheckoutController extends Controller
         $IDArrayy = explode('|', $IDArray);
         if ($request->acc_name == null || $request->acc_num == null) {
             Checkout::find(Cart::find($IDArrayy[0])->checkout_id)->delete();
-            return redirect()->route('home')->with('error', '1Input Error! Your Checkout request has been removed!');
+            return redirect()->route('home')->with('error', 'Input Error! Your Checkout request has been removed!');
         } else {
             //&& !(preg_match('([0][9]\d\d\d\d\d\d\d\d\d)', $request->acc_num))
             //dd(($request->payment_method == 'Palawan Express' || $request->payment_method == 'COD' || $request->payment_method == 'GCash') && !(preg_match('([0][9]\d\d\d\d\d\d\d\d\d)', $request->acc_num)));
             if (($request->payment_method == 'Palawan Express' || $request->payment_method == 'COD' || $request->payment_method == 'GCash') && !(preg_match('([0][9]\d\d\d\d\d\d\d\d\d)', $request->acc_num))) {
-                return redirect()->route('home')->with('error', '2Input Error! Your Checkout request has been removed!');
+                return redirect()->route('home')->with('error', 'Input Error! Your Checkout request has been removed!');
             } else if (($request->payment_method == 'BDO' || $request->payment_method == 'BPI') && !(preg_match('(\d\d\d\d\s\d\d\d\d\s\d\d\d\d\s\d\d\d\d)', $request->acc_num))) {
-                return redirect()->route('home')->with('error', '3Input Error! Your Checkout request has been removed!');
+                return redirect()->route('home')->with('error', 'Input Error! Your Checkout request has been removed!');
             } else {
                 $token = Str::random(60);
                 //$array = explode('|', $IDArray);

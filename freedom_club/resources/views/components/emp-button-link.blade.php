@@ -38,7 +38,7 @@
                     <h5 class="modal-title" id="{{$target . "Label"}}">{{ $title }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color:red;"></button>
                 </div>
-                    <form action="{{ route('suppliers.store') }}" method="POST">
+                    <form action="{{ route('suppliers.store') }}" method="POST" id="add_supplier_form">
                     @csrf                                                                                                                                                                 
                     <div class="modal-body" style="height:300px">
                         <div style="height: 100%; width:100%; display:flex; flex-direction:column; justify-content:space-around; align-items:center;">
@@ -58,7 +58,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Add Record">
+                        <input type="submit" class="btn btn-primary" value="Add Supplier" id="add_supplier">
                     </form>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                     <h5 class="modal-title" id="{{$target . "Label"}}">{{ $title }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color:red;"></button>
                 </div>
-                    <form action="{{ route('materials.store') }}" method="POST">
+                    <form action="{{ route('materials.store') }}" method="POST" id="attach_item_form">
                     @csrf                                                                                                                                                                 
                     <div class="modal-body" style="height:400px">
                         <div style="height: 100%; width:100%; display:flex; flex-direction:column; justify-content:space-around;">
@@ -126,7 +126,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Add Record">
+                        <input type="submit" class="btn btn-primary" value="Attach Item to Supplier" id="attach_item">
                     </form>
                 </div>
             </div>
@@ -141,7 +141,7 @@
                     <h5 class="modal-title" id="{{$target . "Label"}}">{{ $title }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color:red;"></button>
                 </div>
-                    <form action="{{ route('registerEmployee.store') }}" method="POST">
+                    <form action="{{ route('registerEmployee.store') }}" method="POST" id="add_employee_form">
                     @csrf                                                                                                                                                                 
                     <div class="modal-body" style="height:700px">
                         <div style="height: 100%; width:100%; display:flex; flex-direction:column; justify-content:space-around;">
@@ -195,7 +195,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Add Record">
+                        <input type="submit" class="btn btn-primary" value="Add Employee" id="add_employee">
                     </form>
                 </div>
             </div>
@@ -310,7 +310,7 @@
                     <h5 class="modal-title" id="{{$target . "Label"}}">{{ $title }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color:red;"></button>
                 </div>
-                    <form action="{{ route('transfer.store') }}" method="POST">
+                    <form action="{{ route('transfer.store') }}" method="POST" id="request_transfer_form">
                     @csrf                                                                                                                                                                 
                     <div class="modal-body">
                         <div style="height: 100%; width:100%; display:flex; flex-direction:column; justify-content:space-around;">
@@ -347,7 +347,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Add Record">                    
+                        <input type="submit" class="btn btn-primary" value="Request Transfer" id="request_transfer">                    
                     </div>
                 </form>
             </div>        
@@ -367,7 +367,7 @@
                     <h5 class="modal-title" id="{{$target . "Label"}}">{{ $title }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color:red;"></button>
                 </div>
-                    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" id="product_add_form">
                     @csrf                                                                                                                                                                 
                     <div class="modal-body">
                         <div style="height: 100%; width:100%; display:flex; flex-direction:column; justify-content:space-around;">                             
@@ -418,7 +418,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Add Record">                    
+                        <input type="submit" class="btn btn-primary" value="Add Product" id="product_add">                    
                     </div>
                 </form>
             </div>        

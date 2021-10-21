@@ -63,6 +63,7 @@
                 <h2>{{ $prod_names[$index] }}</h2>
                 <h5>Color: {{ $color->name(Product::find($id)->prod_color)['name'] }}</h5>
                 <h5>Size: {{ Product::find($id)->prod_size }}</h5>                
+                <h5>Quantity: {{ $product_qtys[$index] }}</h5>                
             </div>
         </div>                                            
         <div style="height: 100%; display:flex; flex-wrap:wrap; text-align:right; padding-right:30px; margin-top:20px;">

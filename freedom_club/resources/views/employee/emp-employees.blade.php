@@ -8,15 +8,16 @@
 
     @php
         use App\Models\Employee;
-        $roles = DB::table('roles')->get();                        
+        $roles = DB::table('roles')->get();    
         $role_users = DB::table('role_user')->get();         
         $employeeData = Employee::all();                      
-        $headers = ['Employee ID', 'First Name', 'Last Name', 'Email', 'Gender', 'Birthdate', 'Created At', 'Updated At']              
+        $headers = ['Employee ID', 'First Name', 'Last Name', 'Email', 'Gender', 'Birthdate', 'Created At', 'Updated At'];             
     @endphp
 
-    <div style="display: flex; align-items:center; justify-content:space-between; width:35%; height: 6%;">
+    <div style="display: flex; align-items:center; justify-content:space-between; width:100%; height: 6%;">
         <x-emp-header title="EMPLOYEE PROFILES"></x-emp-header>                       
-        <x-emp-button-link title="Register Employee" toggle='true' target='registerEmployee'></x-emp-button-link>        
+        <x-emp-button-link title="Register Employee" toggle='true' target='registerEmployee'></x-emp-button-link>       
+        <x-emp-button-link title="View Removed Employees" link="{{ route('employees.removed') }}"></x-emp-button-link>     
     </div>
     <ul>
         @if (session()->has('error'))
@@ -59,7 +60,7 @@
         <x-emp-table :dataCollection="$employeeData" :headers="$headers" title="Edit Employee"/>  
     </div>    
 
-    <script>        
+    <script>            
         var modals = document.querySelectorAll('.edit_employee')        
         var roles = [
             @foreach($roles as $role)
@@ -113,7 +114,24 @@
             })
         })
         
-        
+        var add_employee = document.getElementByID('add_employee')    
+        var add_employee_form = document.getElementByID('add_employee_form')
+        var employee_delete = document.getElementByID('employee_delete')
+        var employee_delete_form = document.getElementByID('employee_delete_form')
+        var employee_edit = document.getElementByID('employee_edit')
+        var employee_edit_form = document.getElementByID('employee_edit_form')
+        add_employee.addEventListener('click', function(){
+            add_employee.disabled = true
+            add_employee_form.submit()
+        })    
+        employee_delete.addEventListener('click', function(){
+            employee_delete.disabled = true
+            employee_delete_form.submit()
+        })    
+        employee_edit.addEventListener('click', function(){
+            employee_edit.disabled = true
+            employee_edit_form.submit()
+        })    
     </script>
 
 @endsection

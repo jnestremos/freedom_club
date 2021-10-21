@@ -255,6 +255,11 @@
         })
 
 
-        
+       var request_transfer = document.getElementById('request_transfer') 
+       var request_transfer_form = document.getElementById('request_transfer') 
+       request_transfer.addEventListener('click', function(){
+        request_transfer.disabled = true
+        request_transfer_form.submit()    
+       })
     </script>
 @endsection

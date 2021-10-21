@@ -13,7 +13,7 @@
         use App\Models\SuppTransaction;                       
         $dataCollections = [DB::table('material_transaction')->select('*')->where('deleted_at', null)->get(), Supplier::all(), Material::all(), SuppTransaction::class]; 
         //dd($dataCollections[3]::find(1));            
-        $headers = ['Transaction ID', 'Material Number', 'Material Type', 'Material Size', 'Material Color', 'Material Qty', 'Material Price', 'Created At', 'Updated At']                      
+        $headers = ['Receipt #', 'Material Number', 'Material Type', 'Material Size', 'Material Color', 'Material Qty', 'Material Price', 'Created At', 'Updated At']                      
     @endphp
     @if (count($dataCollections) != 0)           
         @php                      

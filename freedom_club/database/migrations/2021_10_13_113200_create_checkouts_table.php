@@ -24,6 +24,7 @@ class CreateCheckoutsTable extends Migration
             $table->string('acc_num')->nullable();
             $table->boolean('status')->nullable();
             $table->boolean('emailStatus')->nullable();
+            $table->date('dateReceived')->nullable();
             $table->double('total');
             $table->string('shipping_service')->nullable();
             $table->string('tracking_number')->nullable();

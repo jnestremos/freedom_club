@@ -228,6 +228,13 @@ class CustomerController extends Controller
     {
         return view('customer.deliveries', ['cart_items' => Checkout::where('user_id', auth()->user()->id)->where('shipping_service', '!=', 'null')->simplePaginate(6)]);
     }
+    public function updateDeliveries($id)
+    {
+        Checkout::find($id)->update([
+            'dateReceived' => Carbon::now(),
+        ]);
+        return redirect()->route('customer.showDeliveries');
+    }
 
     public function return()
     {
@@ -269,7 +276,7 @@ class CustomerController extends Controller
 
         if (Checkout::where('receipt_number', $request->receipt_number)->first() != null) {
             $checkout = Checkout::where('receipt_number', $request->receipt_number)->first();
-            if ($checkout->user_id == auth()->user()->id) {
+            if ($checkout->user_id == auth()->user()->id && $checkout->dateReceived != null) {
                 $checkoutDate = new Carbon($checkout->created_at);
                 $dateToday = Carbon::now();
                 if ($checkoutDate->addWeeks(2)->greaterThanOrEqualTo($dateToday)) {
@@ -300,7 +307,7 @@ class CustomerController extends Controller
                                 'image' => $fileNameToStore
                             ]);
                         } else {
-                            return back()->with('error', 'This record has been already recorded!');
+                            return back()->with('error', 'Error!');
                         }
                     } else {
                         return back()->with('error', 'Record not recognized!');
@@ -309,7 +316,7 @@ class CustomerController extends Controller
                     return back()->with('error', 'Order cannot be returned/refunded after 2 weeks!');
                 }
             } else {
-                return back()->with('error', 'Receipt # not recognized!');
+                return back()->with('error', 'Receipt # not recognized!/Order hasn\'t been received yet');
             }
         } else {
             return back()->with('error', 'Receipt # not recognized!');
@@ -389,6 +396,7 @@ class CustomerController extends Controller
     public function deactivate(Request $request, $id)
     {
         User::find($id)->delete();
+        Customer::where('user_id', $id)->delete();
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();

@@ -23,7 +23,7 @@
     <div style="margin-left:50px;width:40%;">
         <h3>Request #{{ $salesReturn->request_number }}</h3>
         <h3>Hello! {{ $name }}</h3>
-        <p>The request has been accepted! Please coordinate with our admin for further details</p>
+        <p>The request has been {{ $message }}. Please coordinate with our admin for further details</p>
         <br><br>                  
         <p>Regards,</p>
         <p>Freedom Club</p>

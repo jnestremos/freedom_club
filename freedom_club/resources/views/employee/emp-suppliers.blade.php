@@ -65,12 +65,13 @@
     
    
     <script>
-        var material_size = document.getElementById('material_size');
+        var material_size = document.getElementById('material_size');        
         var material_options = document.querySelectorAll('#material_size option')
         var supplier_id = document.getElementById('supplier_id');
         var material_type = document.getElementById('material_type');        
         var material_color = document.getElementById('material_color');
         var material_price = document.getElementById('material_price');
+
         if(supplier_id.value == ''){
             material_size.disabled = true 
             //supplier_id.disabled = true
@@ -137,6 +138,45 @@
             material_price.value = parseFloat(material_price.value).toFixed(2)
         })
         
+
+        var edit_credentials = document.getElementById('edit_credentials');
+        var edit_credential_form = document.getElementById('edit_credential_form');
+        var add_supplier = document.getElementById('add_supplier');
+        var add_supplier_form = document.getElementById('add_supplier_form');
+        var attach_item = document.getElementById('attach_item');
+        var attach_item_form = document.getElementById('attach_item_form');
+        var supplier_delete = document.getElementById('supplier_delete');
+        var supplier_delete_form = document.getElementById('supplier_delete_form');
+        var item_delete = document.getElementById('item_delete');
+        var item_delete_form = document.getElementById('item_delete_form');
+        var edit_item = document.getElementById('edit_item');
+        var edit_item_form = document.getElementById('edit_item_form');
+        edit_credentials.addEventListener('click', function(){
+            edit_credentials.disabled = true
+            edit_credential_form.submit()
+        })
+        add_supplier.addEventListener('click', function(){
+            add_supplier.disabled = true
+            add_supplier_form.submit()
+        })
+        attach_item.addEventListener('click', function(){
+            attach_item.disabled = true
+            attach_item_form.submit()
+        })
+        supplier_delete.addEventListener('click', function(){
+            supplier_delete.disabled = true
+            supplier_delete_form.submit()
+        })
+        item_delete.addEventListener('click', function(){
+            item_delete.disabled = true
+            item_delete_form.submit()
+        })
+        edit_item.addEventListener('click', function(){
+            edit_item.disabled = true
+            edit_item_form.submit()
+        })
+
+
     </script>
     
 @endsection

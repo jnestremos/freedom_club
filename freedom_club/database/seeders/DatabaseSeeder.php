@@ -46,6 +46,10 @@ class DatabaseSeeder extends Seeder
                 Storage::delete($file);
             }
         }
+        $files = Storage::files('/public/return_images');
+        foreach ($files as $file) {
+            Storage::delete($file);
+        }
 
         $categories = ['Raw Material', 'Production Costs', 'Packaging', 'Promotional and Advertise', 'Other Expenses'];
         foreach ($categories as $category) {

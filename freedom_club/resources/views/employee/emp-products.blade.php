@@ -168,7 +168,19 @@
             status2.checked = false
         }
 
+        var product_add = document.getElementById('product_add')
+        var product_add_form = document.getElementById('product_add_form')
+        var product_delete = document.getElementById('product_delete')
+        var product_delete_form = document.getElementById('product_delete_form')
 
+        product_add.addEventListener('click', function(){
+            product_add.disabled = true
+            product_add_form.submit()
+        })
+        product_delete.addEventListener('click', function(){
+            product_delete.disabled = true
+            product_delete_form.submit()
+        })
     </script>
     
 @endsection
