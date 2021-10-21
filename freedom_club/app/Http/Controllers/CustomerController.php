@@ -244,7 +244,7 @@ class CustomerController extends Controller
 
 
         //dd($request);
-        if ($request->payment_method == 'COD' || $request->payment_method == 'Palawan Express') {
+        if ($request->payment_method == 'COD' || $request->payment_method == 'Palawan Express' || $request->payment_method == 'GCash') {
             $this->validate($request, [
                 'receipt_number' => 'required',
                 'acc_name' => 'required',
@@ -258,7 +258,7 @@ class CustomerController extends Controller
             $this->validate($request, [
                 'receipt_number' => 'required',
                 'acc_name' => 'required',
-                'acc_number' => 'required|regex:(\d\d\d\d\s\d\d\d\d\s\d\d\d\d)',
+                'acc_number' => 'required|regex:(\d\d\d\d\s\d\d\d\d\s\d\d\d\d\s\d\d\d\d)',
                 'payment_method' => 'required',
                 'product_number' => 'required',
                 'quantity' => 'required',
@@ -354,9 +354,9 @@ class CustomerController extends Controller
         $validator = true;
 
         foreach ($wrongCustomerCollection as $customer) {
-            if (($request->emp_firstName == $customer->emp_firstName) || ($request->emp_lastName == $customer->emp_lastName)
-                || ($request->emp_email == $customer->emp_email) || ($request->emp_gender == $customer->emp_gender)
-                || ($request->emp_birthDate == $customer->emp_birthDate)
+            if (($request->cust_firstName == $customer->cust_firstName) || ($request->cust_lastName == $customer->cust_lastName)
+                || ($request->cust_email == $customer->cust_email) || ($request->cust_birthDate == $customer->cust_birthDate)
+                || ($request->cust_phoneNum == $customer->cust_phoneNum) || ($request->cust_address == $customer->cust_address)
             ) {
                 $validator = false;
                 break;
@@ -367,6 +367,8 @@ class CustomerController extends Controller
             DB::table('customers')->where('user_id', '=', $id)->update([
                 'cust_firstName' => $request->cust_firstName,
                 'cust_lastName' => $request->cust_lastName,
+                'cust_address' => $request->cust_address,
+                'cust_phoneNum' => $request->cust_phoneNum,
                 'cust_email' => $request->cust_email,
                 'cust_gender' => $request->cust_gender,
                 'cust_birthDate' => $request->cust_birthDate,

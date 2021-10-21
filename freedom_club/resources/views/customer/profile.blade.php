@@ -18,41 +18,39 @@
     }
     
 </style>
-
-    <div style="width: 100%; height:90vh; background-color: black; display:flex; justify-content:center; align-items:center; font-family: Bahnschrift">   
-        <ul>    
-            @if (session()->has('error'))
-                <li>{{ session('error') }}</li>
-            @endif
-            @error ('cust_firstName')
-                <li>{{ $message }}</li>
-            @enderror
-            @error ('cust_lastName')
-                <li>{{ $message }}</li>
-            @enderror
-            @error ('cust_email')
-                <li>{{ $message }}</li>
-            @enderror            
-            @error ('cust_birthDate')
-                <li>{{ $message }}</li>
-            @enderror
-            @error ('old_password')
-                <li>{{ $message }}</li>
-            @enderror
-            @error ('password')
-                <li>{{ $message }}</li>
-            @enderror
-            </ul>
+<div style="position: absolute; right:30%; top:50%; color:white; font-family:Bahnschrift">
+    <ul>    
+        @if (session()->has('error'))
+            <li>{{ session('error') }}</li>
+        @endif
+        @error ('cust_firstName')
+            <li>{{ $message }}</li>
+        @enderror
+        @error ('cust_lastName')
+            <li>{{ $message }}</li>
+        @enderror
+        @error ('cust_email')
+            <li>{{ $message }}</li>
+        @enderror            
+        @error ('cust_birthDate')
+            <li>{{ $message }}</li>
+        @enderror
+        @error ('old_password')
+            <li>{{ $message }}</li>
+        @enderror
+        @error ('password')
+            <li>{{ $message }}</li>
+        @enderror
+        @if (auth()->user()->customer->cust_address === null && auth()->user()->customer->cust_phoneNum === null)            
+            <li>Please type in your current address and phone number!</li>         
+        @endif
+    </ul>  
+</div>
+    <div style="width: 100%; height:90vh; background-color: black; display:flex; justify-content:center; align-items:center; font-family: Bahnschrift">           
         <div style="width:90%; height:90%; display:flex; padding-top:30px">
             <form method="POST" action="{{ url('/profile/'. auth()->user()->id) }}" style="width:60%; position: relative;">
                 @csrf
-                <h1 style="color: white">MY PROFILE</h1>
-                <label for="" style="color: white">Username:</label>
-                <div style="display:flex; justify-content:space-between; align-items:center">
-                    <input type="text" value="{{ auth()->user()->username }}" name="username" class="form-control" style="width: 200px">
-                    <a id="password_click" style="text-decoration: none; color:black"><h6 style="color: white"><u>Change your password</u></h6></a>
-                </div>
-                <br>                                           
+                <h1 style="color: white">MY PROFILE</h1>                                                        
                 <div style="display: flex">
                     <div>
                         <label for="" style="color: white">First Name:</label>
@@ -63,26 +61,30 @@
                         <input type="text" value="{{ auth()->user()->customer->cust_lastName }}" class="form-control" style="width: 200px" name="cust_lastName">       
                     </div>
                 </div>   
-                <br>    
+                <br>
+                @if (auth()->user()->customer->cust_address)
                 <label for="" style="color: white">Address:</label>                              
-                <input type="address" value="{{ auth()->user()->customer->cust_address }}" class="form-control" style="width: 250px" name="cust_address">
+                <input type="address" value="{{ auth()->user()->customer->cust_address }}" class="form-control" style="width: 250px" name="cust_address">   
+                @else
+                <label for="" style="color: white">Address:</label>                              
+                <input type="address" value="" class="form-control" style="width: 250px" name="cust_address">  
+                @endif                    
                 <br>    
                 <label for="" style="color: white">Email:</label>                              
                 <input type="email" value="{{ auth()->user()->customer->cust_email }}" class="form-control" style="width: 250px" name="cust_email">
-                <br>    
+                <br>  
+                @if (auth()->user()->customer->cust_phoneNum)
                 <label for="" style="color: white">Phone Num:</label>                              
-                <input type="tel" value="{{ auth()->user()->customer->cust_phoneNum }}" class="form-control" style="width: 250px" name="cust_email">
+                <input type="tel" value="{{ auth()->user()->customer->cust_phoneNum }}" class="form-control" style="width: 250px" name="cust_phoneNum">
+                @else
+                <label for="" style="color: white">Phone Num:</label>                              
+                <input type="tel" class="form-control" style="width: 250px" name="cust_phoneNum">
+                @endif
                 <br>                             
                 <label for="" style="color: white">Birthdate:</label>
                 <input type="date" class="form-control" value="{{ auth()->user()->customer->cust_birthDate }}" style="width: 250px" name="cust_birthDate">
                 <br>
-                <button type="submit" class="btn btn-success">Save</button>
-                <form method="POST" action="{{ url('/profile/'.auth()->user()->id) }}">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Deactivate</button>
-                </form>
-                
+                <button type="submit" class="btn btn-success">Save</button>                                
                 <div id="old_new_confirm" style="position: absolute; right:0%; top:20%; color:white" hidden>
                     <div style="display: flex">
                         <label for="old_password" style="width:50%">Old Password:</label>
@@ -100,6 +102,11 @@
                     </div>
                 </div>
             </form> 
+            <form method="POST" action="{{ url('/profile/'.auth()->user()->id) }}" style="position: absolute; bottom:26.5%; left: 10%;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Deactivate</button>
+            </form>
             <div style="width:40%; display:flex; flex-direction:column; align-items:flex-end">
                 <a href="{{ route('customer.showHistory') }}" style="text-decoration: none"><h6 id="purchase_history" style="color: white">
                     Purchase History

@@ -8,7 +8,7 @@
 
     @php    
         use Illuminate\Support\Facades\DB;                               
-        $dataCollections = [DB::table('balance_sheet')->get()]; 
+        $dataCollections = [DB::table('balance_sheet')->orderBy('id', 'asc')->get()]; 
         //dd($dataCollections[3]::find(1));            
         $headers = ['Description', 'Debit Amount', 'Credit Amount', 'Total Balance', 'Created At', 'Updated At'];                      
     @endphp

@@ -80,48 +80,56 @@ class CheckoutController extends Controller
         $IDArrayy = explode('|', $IDArray);
         if ($request->acc_name == null || $request->acc_num == null) {
             Checkout::find(Cart::find($IDArrayy[0])->checkout_id)->delete();
-            return redirect()->route('home')->with('error', 'Input Error! Your Checkout request has been removed!');
+            return redirect()->route('home')->with('error', '1Input Error! Your Checkout request has been removed!');
         } else {
-            $token = Str::random(60);
-            //$array = explode('|', $IDArray);
-            //dd($array);
-            $items = [];
-            foreach ($IDArrayy as $id) {
-                if (Product::find(Cart::find($id)->product_id)->prod_qty <= 0) {
-                    $prod_name = Product::find(Cart::find($id)->product_id)->prod_name;
-                    $prod_color = Product::find(Cart::find($id)->product_id)->prod_color;
-                    array_push($items, $prod_name . '-' . $color->name($prod_color)['name']);
-                }
-            }
-            if (!empty($items)) {
-                return redirect()->route('home')->with(['error' => 'Selected items have not been recorded!', 'items' => $items]);
+            //&& !(preg_match('([0][9]\d\d\d\d\d\d\d\d\d)', $request->acc_num))
+            //dd(($request->payment_method == 'Palawan Express' || $request->payment_method == 'COD' || $request->payment_method == 'GCash') && !(preg_match('([0][9]\d\d\d\d\d\d\d\d\d)', $request->acc_num)));
+            if (($request->payment_method == 'Palawan Express' || $request->payment_method == 'COD' || $request->payment_method == 'GCash') && !(preg_match('([0][9]\d\d\d\d\d\d\d\d\d)', $request->acc_num))) {
+                return redirect()->route('home')->with('error', '2Input Error! Your Checkout request has been removed!');
+            } else if (($request->payment_method == 'BDO' || $request->payment_method == 'BPI') && !(preg_match('(\d\d\d\d\s\d\d\d\d\s\d\d\d\d\s\d\d\d\d)', $request->acc_num))) {
+                return redirect()->route('home')->with('error', '3Input Error! Your Checkout request has been removed!');
             } else {
+                $token = Str::random(60);
+                //$array = explode('|', $IDArray);
+                //dd($array);
+                $items = [];
                 foreach ($IDArrayy as $id) {
-                    Cart::find($id)->update([
-                        'pending' => true,
-                        'checkout_id' => $request->checkout_id
-                    ]);
-                    //dd(Cart::find($id)->quantity);
-                    $qty = Product::find(Cart::find($id)->product_id)->prod_qty;
-                    Product::find(Cart::find($id)->product_id)->update([
-                        'prod_qty' => $qty - Cart::find($id)->quantity
-                    ]);
+                    if (Product::find(Cart::find($id)->product_id)->prod_qty <= 0) {
+                        $prod_name = Product::find(Cart::find($id)->product_id)->prod_name;
+                        $prod_color = Product::find(Cart::find($id)->product_id)->prod_color;
+                        array_push($items, $prod_name . '-' . $color->name($prod_color)['name']);
+                    }
                 }
-                Checkout::find(Cart::find($IDArrayy[0])->checkout_id)->update([
-                    'confirm_token' => $token,
-                    'acc_name' => $request->acc_name,
-                    'acc_num' => $request->acc_num,
-                    'payment_method' => $request->payment_method,
-                ]);
-                // foreach ($array as $id) {
-                //     Checkout::where('cart_id', $id)->update([
-                //         'confirm_token' => $token,
-                //         'acc_name' => $request->acc_name,
-                //         'acc_num' => $request->acc_num,
-                //         'payment_method' => $request->payment_method
-                //     ]);
-                // }
-                return redirect('/checkout/' . $IDArray . '/' . $token);
+                if (!empty($items)) {
+                    return redirect()->route('home')->with(['error' => 'Selected items have not been recorded!', 'items' => $items]);
+                } else {
+                    foreach ($IDArrayy as $id) {
+                        Cart::find($id)->update([
+                            'pending' => true,
+                            'checkout_id' => $request->checkout_id
+                        ]);
+                        //dd(Cart::find($id)->quantity);
+                        $qty = Product::find(Cart::find($id)->product_id)->prod_qty;
+                        Product::find(Cart::find($id)->product_id)->update([
+                            'prod_qty' => $qty - Cart::find($id)->quantity
+                        ]);
+                    }
+                    Checkout::find(Cart::find($IDArrayy[0])->checkout_id)->update([
+                        'confirm_token' => $token,
+                        'acc_name' => $request->acc_name,
+                        'acc_num' => $request->acc_num,
+                        'payment_method' => $request->payment_method,
+                    ]);
+                    // foreach ($array as $id) {
+                    //     Checkout::where('cart_id', $id)->update([
+                    //         'confirm_token' => $token,
+                    //         'acc_name' => $request->acc_name,
+                    //         'acc_num' => $request->acc_num,
+                    //         'payment_method' => $request->payment_method
+                    //     ]);
+                    // }
+                    return redirect('/checkout/' . $IDArray . '/' . $token);
+                }
             }
         }
     }

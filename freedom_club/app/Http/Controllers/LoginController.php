@@ -24,13 +24,13 @@ class LoginController extends Controller
 
         return Socialite::driver('facebook')->fields([
             'first_name', 'last_name', 'email', 'gender', 'birthday'
-        ])->scopes(['user_gender', 'user_birthday'])->redirect();
+        ])->scopes(['user_gender', 'user_birthday, user_location'])->redirect();
     }
 
     public function handleFacebookCallback()
     {
 
-        $user = Socialite::driver('facebook')->fields(['first_name', 'last_name', 'email', 'gender', 'birthday'])->user();
+        $user = Socialite::driver('facebook')->fields(['first_name', 'last_name', 'email', 'gender', 'birthday', 'location'])->user();
         //dd($user);
         $this->socMedLoginOrRegister($user);
         return redirect()->route('home');
@@ -41,6 +41,7 @@ class LoginController extends Controller
 
         $user = User::where('provider_id', '=', $data->id)->first();
         if (!$user) {
+            //dd($data->user['location']['name']);
             $birthDateArray = explode('/', $data->user['birthday']);
             $month = $birthDateArray[0];
             $day = $birthDateArray[1];
@@ -48,17 +49,32 @@ class LoginController extends Controller
             $birthDate = $year . "-" . $month . "-" . $day;
             $user = new User();
             $user->provider_id = $data->id;
-            $user->profile_pic = 'no-image.jpg';
+            //$user->profile_pic = 'no-image.jpg';
             $user->save();
-            Customer::create([
-                'user_id' => $user->id,
-                'cust_firstName' => $data->user['first_name'],
-                'cust_lastName' => $data->user['last_name'],
-                'cust_email' => $data->email,
-                'cust_gender' => $data->user['gender'],
-                'cust_birthDate' => $birthDate,
-                //'cust_profile_pic' => 'no_image.jpg'
-            ]);
+            if (str_contains($data->user['location']['name'], 'City')) {
+                Customer::create([
+                    'user_id' => $user->id,
+                    'cust_firstName' => $data->user['first_name'],
+                    'cust_lastName' => $data->user['last_name'],
+                    'cust_email' => $data->email,
+                    'cust_gender' => $data->user['gender'],
+                    'cust_birthDate' => $birthDate,
+                    'cust_profile_pic' => 'no_image.jpg',
+                    'cust_city' => $data->user['location']['name'],
+                ]);
+            } else {
+                Customer::create([
+                    'user_id' => $user->id,
+                    'cust_firstName' => $data->user['first_name'],
+                    'cust_lastName' => $data->user['last_name'],
+                    'cust_email' => $data->email,
+                    'cust_gender' => $data->user['gender'],
+                    'cust_birthDate' => $birthDate,
+                    'cust_profile_pic' => 'no_image.jpg',
+                    'cust_province' => $data->user['location']['name'],
+                ]);
+            }
+
             $user->attachRole('customer');
         }
         Auth::login($user);

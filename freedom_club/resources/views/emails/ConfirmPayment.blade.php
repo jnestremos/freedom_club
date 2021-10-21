@@ -21,7 +21,7 @@
         <h2>Invoice</h2>
     </div>
     <div style="display: flex; flex-wrap:wrap; width:80%; padding:20px; background-color:grey;">
-        <div style="width:50%">
+        <div style="width:30%">
             <div>
                 <h4>Email</h4>
                 <p>{{ auth()->user()->customer->cust_email }}</p>
@@ -35,12 +35,19 @@
                 <p>{{$invoice_num}}</p>
             </div>
         </div>
-        <div style="width:50%;">
+        <div style="width:30%;">
             <h4>Billed To</h4>            
             <p>{{ $acc_name }}</p>
             <p>{{ $acc_number }}</p>
             <p>{{ auth()->user()->customer->cust_address }}</p>
             <p>PHL</p>
+        </div>
+        <div style="width:30%;">
+            <h4>Payment Methods include: </h4>            
+            <p>BDO Acc #: Wico Alba 1234 5678 9087</p>
+            <p>BPI Acc #: Wico Alba 1234 4567 8907</p>
+            <p>Palawan Express Phone #: 09123456789</p>
+            <p>GCash Phone #: 09123456789</p>
         </div>
     </div>
     <br>

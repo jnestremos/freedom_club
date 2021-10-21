@@ -95,6 +95,9 @@
         <div style="color:red;">{{ session('error') }}</div>
     @endif
     @auth
+    @if (auth()->user()->customer->cust_address === null && auth()->user()->customer->cust_phoneNum === null)
+    <div style="display: flex; color:red; font-family: Verdana">Please update your current address by opening your profile!</div>      
+    @endif
     @if (!auth()->user()->email_verified_at && !auth()->user()->provider_id)
     <div style="display: flex; color:red; font-family: Verdana">We noticed that you still haven't confirmed your email yet, please check your email to verify your account. If you hadn't received a message, please click on this  
         <form action="{{  url('/users/resendVerify/'.auth()->user()->id)  }}" method="POST">
