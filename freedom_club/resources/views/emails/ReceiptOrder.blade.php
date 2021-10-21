@@ -60,7 +60,7 @@
                 <h2>{{ $items[$index] }}</h2>
                 <h5>Color: {{ $color->name(Product::find($id)->prod_color)['name'] }}</h5>
                 <h5>Size: {{ Product::find($id)->prod_size }}</h5>                
-                <h5>Qty: {{ $product_qtys[$index] }}</h5>                
+                <h5>Size: {{ $product_qtys[$index] }}</h5>                
             </div>
         </div>                                            
         <div style="height: 100%; display:flex; text-align:right; padding-right:30px; margin-top:20px;">
@@ -76,7 +76,7 @@
                 <h2 style="position: absolute; right:40%; top:0%;">Php {{ $total }}</h2>
             </div>
         </div>
-        <div style="position: absolute; bottom:10%; right:5%">
+        <div style="position: absolute; bottom:5%; right:5%">
             <div style="width: 20rem; display:flex;">
                 <h4 style="margin-right: 40px">Shipping Fee: </h4>
                 <h4>Php 500</h4>
