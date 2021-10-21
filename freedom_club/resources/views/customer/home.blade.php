@@ -180,7 +180,7 @@
                   $prod_size = Product::where('prod_name', $product->prod_name)->where('prod_type', $product->prod_type)->where('prod_color', $product->prod_color)->orderBy('prod_size', 'asc')->first()->prod_size;
               @endphp                          
               <div class="col-4" style="display:flex; justify-content:space-around; margin-top:20px">
-                <div class="card" style="width: 27rem; margin-bottom:20px">
+                <div class="card" style="width: 19rem; margin-bottom:20px; border:0px">
                     <img src="{{ asset('storage/product_images/'. $product->product_image) }}" class="card-img-top img-responsive h-100 w-100" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{ $product->prod_name }}</h5>

@@ -110,6 +110,11 @@ class CheckoutController extends Controller
                         ]);
                         //dd(Cart::find($id)->quantity);
                         $qty = Product::find(Cart::find($id)->product_id)->prod_qty;
+                        if ($qty - Cart::find($id)->quantity == 0) {
+                            Product::find(Cart::find($id)->product_id)->update([
+                                'prod_status' => false
+                            ]);
+                        }
                         Product::find(Cart::find($id)->product_id)->update([
                             'prod_qty' => $qty - Cart::find($id)->quantity
                         ]);
@@ -172,7 +177,8 @@ class CheckoutController extends Controller
             foreach (Cart::where('checkout_id', Checkout::where('invoice_number', $invoice_number)->first()->id)->get() as $item) {
                 $qty = Product::find($item->product_id)->prod_qty;
                 Product::find($item->product_id)->update([
-                    'prod_qty' => $qty + $item->quantity
+                    'prod_qty' => $qty + $item->quantity,
+                    'prod_status' => true
                 ]);
             }
         } else {

@@ -279,7 +279,7 @@ class CustomerController extends Controller
             if ($checkout->user_id == auth()->user()->id && $checkout->dateReceived != null) {
                 $checkoutDate = new Carbon($checkout->created_at);
                 $dateToday = Carbon::now();
-                if ($checkoutDate->addWeeks(2)->greaterThanOrEqualTo($dateToday)) {
+                if ($checkoutDate->addWeeks(3)->greaterThanOrEqualTo($dateToday)) {
                     if (
                         $request->payment_method == $checkout->payment_method
                         && strtolower($request->acc_name) == strtolower($checkout->acc_name) && $request->acc_number == $checkout->acc_num

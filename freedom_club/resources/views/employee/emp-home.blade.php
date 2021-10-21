@@ -7,6 +7,12 @@
 <div style="display: flex; align-items:center; justify-content:space-between; width:35%; height: 6%;">
     <x-emp-header title="HOME"></x-emp-header>                                
 </div>
+<style>
+    .asd{
+        color: rgb(51, 51, 51);
+        background-color: rgb(175, 170, 170)
+    }
+</style>
 <ul>
     @if (session()->has('error'))
         <li>{{ session('error') }}</li>
@@ -110,7 +116,7 @@
                 datasets:[{
                     label:'Sales',
                     data:data1,
-                    backgroundColor: ['red', 'yellow', 'green']
+                    backgroundColor: ['black', 'rgb(105, 105, 105)', 'rgb(175, 170, 170)', 'rgb(51, 51, 51)']
                 }]
             },
             options:{
@@ -138,7 +144,7 @@
                 datasets:[{
                     label:'Sales',
                     data:data,
-                    backgroundColor: ['red', 'yellow', 'green']
+                    backgroundColor: ['black', 'rgb(105, 105, 105)', 'rgb(175, 170, 170)', 'rgb(51, 51, 51)']
                 }]
             },
             options:{
@@ -166,7 +172,7 @@
                 datasets:[{
                     label:'Expenses',
                     data:expense_data,
-                    backgroundColor: ['red', 'yellow', 'green']
+                    backgroundColor: ['black', 'rgb(105, 105, 105)', 'rgb(175, 170, 170)', 'rgb(51, 51, 51)']
                 }]
             },
             options:{

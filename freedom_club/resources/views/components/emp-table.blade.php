@@ -2,7 +2,8 @@
     use ourcodeworld\NameThatColor\ColorInterpreter;
     use App\Models\SuppTransaction;
     use App\Models\Supplier;
-    $color = new ColorInterpreter();        
+    $color = new ColorInterpreter();  
+    use Illuminate\Support\Facades\DB;  
 @endphp
 <style>
     tr th{
@@ -787,8 +788,16 @@
     </thead>
     <tbody>
         @foreach ($dataCollection[0] as $product)        
-            <tr>       
-                @if ($product->prod_status != 1 && ($product->prod_qty < 0 || $product->prod_qty == null))
+              
+                {{-- <td style="display: flex; align-items:center;"> --}}
+                {{-- <form action="{{ url('/dashboard/products/'.$product->id) }}" method="POST" id="product_delete_form">
+                    @csrf
+                    @method("DELETE")
+                    <button type="submit" class="btn btn-danger" style="margin-right: 20px" id="product_delete"><i class="fas fa-trash"></i></button>
+                    <input type="text" name="user_id" value="{{ $product->id }}" hidden>   
+                </form>   --}}
+                {{-- <a href="" style="text-align: center" id="dataID" data-bs-toggle="modal" data-bs-target="{{ '#id'.$product->id }}">{{ $product->product_number }}</a>                        --}}
+                {{-- @if ($product->prod_status != 1 && $product->prod_qty == null && !(DB::table('stock_transfers')->where('confirmed', null)->where('product_id', $product->id)->get() === null))
                 <td style="display: flex; align-items:center;">
                     <form action="{{ url('/dashboard/products/'.$product->id) }}" method="POST" id="product_delete_form">
                         @csrf
@@ -799,7 +808,7 @@
                     {{ $product->product_number }}                   
                 </td>
                 @else
-                    @if ($product->prod_status != 1 && $product->prod_qty > 0)
+                    @if ($product->prod_status != 1 && $product->prod_qty > 0 && !(DB::table('stock_transfers')->where('confirmed', null)->where('product_id', $product->id)->get() === null))
                     <td style="display: flex; align-items:center;">
                         <form action="{{ url('/dashboard/products/'.$product->id) }}" method="POST">
                             @csrf
@@ -814,9 +823,44 @@
                         <a href="" style="text-align: center" id="dataID" data-bs-toggle="modal" data-bs-target="{{ '#id'.$product->id }}">{{ $product->product_number }}</a>
                     </td>                                            
                     @endif                                 
-                @endif                     
-                
-                                                                                                 
+                @endif                      --}}                
+                <tr> 
+                    @php
+                         //dd(count(DB::table('stock_transfers')->where('confirmed', null)->where('product_id', $product->id)->get()) == 0);
+                    @endphp
+                    @if (count(DB::table('stock_transfers')->where('confirmed', null)->where('product_id', $product->id)->get()) != 0)
+                    <td style="display: flex; justify-content:center">                        
+                        {{ $product->product_number }}
+                    @elseif($product->prod_qty === null)
+                    <td style="display: flex; align-items:center">
+                        <form action="{{ url('/dashboard/products/'.$product->id) }}" method="POST">
+                            @csrf
+                            @method("DELETE")
+                            <button type="submit" class="btn btn-danger" style="margin-right: 20px"><i class="fas fa-trash"></i></button>
+                            <input type="text" name="user_id" value="{{ $product->id }}" hidden>   
+                        </form>
+                        {{ $product->product_number }}
+                    @elseif($product->prod_status == 0 && $product->prod_qty == 0)
+                    <td style="display: flex; align-items:center">
+                        <form action="{{ url('/dashboard/products/'.$product->id) }}" method="POST">
+                            @csrf
+                            @method("DELETE")
+                            <button type="submit" class="btn btn-danger" style="margin-right: 20px"><i class="fas fa-trash"></i></button>
+                            <input type="text" name="user_id" value="{{ $product->id }}" hidden>   
+                        </form>
+                        {{ $product->product_number }}
+                    @elseif($product->prod_qty > 0)
+                    <td style="display:flex; align-items:center">
+                    <form action="{{ url('/dashboard/products/'.$product->id) }}" method="POST">
+                            @csrf
+                            @method("DELETE")
+                            <button type="submit" class="btn btn-danger" style="margin-right: 20px"><i class="fas fa-trash"></i></button>
+                            <input type="text" name="user_id" value="{{ $product->id }}" hidden>   
+                    </form>                        
+                        <a href="" style="text-align: center" id="dataID" data-bs-toggle="modal" data-bs-target="{{ '#id'.$product->id }}">{{ $product->product_number }}</a>
+                    @endif
+                    </td>
+                                                                                          
                                                                                                    
                 <td>{{ $product->prod_name }}</td>                        
                 <td>{{ $product->prod_type }}</td>                        
@@ -1021,7 +1065,7 @@
                 @if ($checkout->dateReceived === null)
                     <td>PENDING</td>                    
                 @else
-                    {{ $checkout->dateReceived }}
+                    <td>{{ $checkout->dateReceived }}</td>
                 @endif
                 @if ($checkout->receipt_number === null)
                     <td>PENDING</td>  

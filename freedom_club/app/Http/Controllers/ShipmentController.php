@@ -59,13 +59,13 @@ class ShipmentController extends Controller
                     ]);
 
                     $suppTransaction = SuppTransaction::create([
-                        'receipt_num' => "REPLACE",
+                        'receipt_num' => "REPLACE" . Shipment::find($id)->receipt_number,
                         'supplier_id' => Material::find($request->material_id)->supplier->id,
                         'totalCost' => $request->quantity * DB::table('material_transaction')->where('supp_transactions_id', Shipment::find($id)->supp_transactions_id)->where('material_id', $request->material_id)->first()->material_price,
                         'datePaid' => Carbon::now()
                     ]);
                     Shipment::create([
-                        'receipt_number' => 'REPLACE',
+                        'receipt_number' => 'REPLACE' . Shipment::find($id)->receipt_number,
                         'supp_transactions_id' => $suppTransaction->id,
                         'shipping_fee' => 0
                     ]);

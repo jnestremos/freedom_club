@@ -120,7 +120,7 @@ Route::get('dashboard/product/images/{id}', function ($id) {
 
 Route::post('dashboard/product/images/store', function (Request $request) {
     $request->validate([
-        'product_image' => 'image|required|dimensions:ratio=3/2'
+        'product_image' => 'image|required'
     ]);
     $fileNameWithExt = $request->file('product_image')->getClientOriginalName();
     $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
@@ -181,7 +181,7 @@ Route::put('dashboard/product/images/update/image/{id}', function (Request $requ
     //dd(DB::table('product_images')->where('product_id', $request->product_id)->where('image_main', '1')->first()); 
     //dd($request->product_image);
     $request->validate([
-        'product_image' => 'image|required|dimensions:ratio=3/2'
+        'product_image' => 'image|required'
     ]);
     $product_image = DB::table('product_images')->where('id', $id)->first();
     $fileNameWithExt = $request->file('product_image')->getClientOriginalName();

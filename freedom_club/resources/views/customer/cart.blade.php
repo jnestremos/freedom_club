@@ -31,7 +31,7 @@
                 @foreach ($items as $index => $cart_item)
                     <div style="display: flex; justify-content:space-around; border-top:3px solid black; align-items:center; width:100%; padding-bottom:30px; padding-top:30px; padding-left:30px; ">
                         <div style="height: 100%; display:flex; position: relative; width:100%;">
-                            <div style="width:250px; margin-right:20px; border:3px solid black">
+                            <div style="width:10rem; margin-right:20px; border:3px solid black">
                                 <img src="{{ asset('storage/product_images/'. $images[$index]) }}" alt="" width="100%">
                             </div>
                             <div>
