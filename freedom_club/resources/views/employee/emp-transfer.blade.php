@@ -26,7 +26,7 @@
     @endif
 
     <div style="display: flex; align-items:center; justify-content:space-between; width:100%; height: 6%;">
-        <x-emp-header title="STOCK IN STOCK OUT"></x-emp-header>                       
+        <x-emp-header title="TRANSFERS"></x-emp-header>                       
         <x-emp-button-link title="View Transfer History" link="{{ route('transfer.history') }}"></x-emp-button-link>
         {{-- <x-emp-button-link title="Request Stock Transfer" :disabled='$disabled' toggle='true' target='requestStockTransfer' :dataCollection="$dataCollections"></x-emp-button-link>         --}}
     </div>
