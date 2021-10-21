@@ -2,7 +2,15 @@
 
 @extends('layouts.app')
 @section('content')
-
+    <div style="position: absolute; background-color: white; height:400px; width:600px; left:7%; top:20%">
+        <img src="{{ asset('/storage/login_images/IMG_1285a.jpg') }}" alt="" width="100%">
+    </div>
+    <div style="position: absolute; background-color: white; height:400px; width:600px; left:20%; bottom:10%">
+        <img src="{{ asset('/storage/login_images/IMG_8266a.jpg') }}" alt="" width="100%">
+    </div>
+    <div style="position: absolute; width:400px; left:20%; bottom:7%; color:white; font-family:Bahnschrift">
+        &copy; 2018 Freedom Club. All Rights Reserved.
+    </div>
     <div style="width: 500px; height:700px; border:2px solid white; position: absolute; right:10%; top:15%; display:flex; flex-wrap:wrap; justify-content:center;">
         <div style="width:100%; height:15%; background-color:white; display:flex; justify-content: center; align-items:center">
             @if (Route::currentRouteName() == 'loginCustomer.index')
