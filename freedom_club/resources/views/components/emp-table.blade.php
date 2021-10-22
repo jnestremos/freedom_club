@@ -102,7 +102,7 @@
                     </form>
                     <a href="" id="dataID" data-bs-toggle="modal" data-bs-target="{{ '#id'.$material->id }}">{{ $material->material_number }}</a>
                 </td>                        
-                <td>{{ $material->supplier_id }}</td>                        
+                <td>{{ $material->supplier->supp_name }}</td>                        
                 <td>{{ $material->material_type }}</td>                        
                 <td>{{ $material->material_size }}</td>                        
                 <td>{{ $color->name($material->material_color)['name'] }}</td>                                                                
@@ -609,6 +609,7 @@
                                                                                                                      
                                        
                 <td><a href="" id="dataID" data-bs-toggle="modal" data-bs-target="{{ '#id'.$stock->material_id }}">{{ $stock->material_number }}</a></td> 
+                <td>{{ $stock->material->supplier->supp_name }}</td>                        
                 <td>{{ $stock->stock_type }}</td>                        
                 <td>{{ $stock->stock_size }}</td>                        
                 <td>{{ $color->name($stock->stock_color)['name'] }}</td>                        
@@ -632,8 +633,8 @@
                                 <input type="text" value="" hidden name="supp_transactions_id">                             
                                 <div style="height: 100%; width:100%; display:flex; flex-direction:column; justify-content:space-around; align-items:center;">
                                     <div style="height:100%; width:100%; display: flex; align-items:center; justify-content:center;">
-                                        <label style="width: 170px" for="supplier_id" class="form-label text-white">Supplier ID:</label>
-                                        <input disabled type="text" class="form-control" name="supplier_id" value="{{ $stock->material->supplier_id }}" placeholder="(Ex: Shirts, hats, bags, and etc.)" >
+                                        <label style="width: 170px" for="supplier_id" class="form-label text-white">Supplier Name:</label>
+                                        <input disabled type="text" class="form-control" name="supplier_id" value="{{ $stock->material->supplier->supp_name }}" placeholder="(Ex: Shirts, hats, bags, and etc.)" >
                                     </div>                    
                                     <div style="height:100%; width:100%; display: flex; align-items:center; justify-content:center;">
                                         <label style="width: 170px" for="stock_size" class="form-label text-white">Stock Size: </label>

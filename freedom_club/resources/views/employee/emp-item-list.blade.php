@@ -9,7 +9,7 @@
     @php
         use App\Models\Material;        
         $materialData = Material::all();                      
-        $headers = ['Material Number','Supplier ID', 'Material Type', 'Material Size', 'Material Color', 'Price', 'Created At', 'Updated At']              
+        $headers = ['Material Number','Supplier Name', 'Material Type', 'Material Size', 'Material Color', 'Price', 'Created At', 'Updated At']              
     @endphp
 
     <div style="display: flex; align-items:center; justify-content:space-between; width:30%; height: 6%;">

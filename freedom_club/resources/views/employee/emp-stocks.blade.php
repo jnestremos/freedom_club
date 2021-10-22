@@ -16,7 +16,7 @@
             array_push($arr, $stock->stock_size);
         }
         //dd($arr);
-        $headers = ['Stock #', 'Material #', 'Stock Type', 'Stock Size', 'Stock Color', 'Stock Qty', 'Stock Price', 'Created At', 'Updated At'];    
+        $headers = ['Stock #', 'Material #' ,'Supplier Name', 'Stock Type', 'Stock Size', 'Stock Color', 'Stock Qty', 'Stock Price', 'Created At', 'Updated At'];    
     @endphp
     @if (count($dataCollections[0]) != 0 && count($dataCollections[1]) != 0)           
         @php                      

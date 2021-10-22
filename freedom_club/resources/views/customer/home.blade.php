@@ -16,8 +16,9 @@
     $product_images = DB::table('product_images')->get();    
     foreach($products as $product){
       foreach($prod_name_colors as $prod_name_color){              
-        if($product->prod_name == $prod_name_color->prod_name && $product->prod_type == $prod_name_color->prod_type 
-        && $product->prod_color == $prod_name_color->prod_color && $product->prod_qty > 0){
+        if($product->prod_name == $prod_name_color->prod_name && $product->prod_type == $prod_name_color->prod_type
+            && $product->prod_color == $prod_name_color->prod_color && $product->prod_qty > 0 &&
+           DB::table('home_products_queue')->where('prod_name', $product->prod_name)->where('prod_type', $product->prod_type)->where('prod_color', $product->prod_color)->first() === null){
           $product_image = DB::table('product_images')->where('prod_name_color_id', $prod_name_color->id)->where('image_main', 1)->first()->product_image;        
           DB::table('home_products_queue')->insert([
             'prod_name_color_id' => $prod_name_color->id,
@@ -30,27 +31,20 @@
         }
       }
     }  
-    //dd(DB::table('home_products_queue')->get());
+    
     $product_image_array = [];
     $product_type_array = [];
     $product_name_array = [];
     $product_color_array = [];
     $prod_name_color_id_array = [];
-    //dd(DB::table('home_products_queue')->get());
-    foreach(DB::table('home_products_queue')->get() as $index => $products){      
-      // dd(DB::table('home_products_queue')->get()); 
-      //var_dump('index'.$index);
-      //var_dump('count '.count(DB::table('home_products_queue')->get()));
+    $index = 0;
+    
+    foreach(DB::table('home_products_queue')->get() as $products){      
+      
       for($i = $index; $i < count(DB::table('home_products_queue')->get()); $i++){
-        //var_dump('i'.$i);
-        //var_dump(count(DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->get()) > 1);
-        if(count(DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->get()) > 1){     
-          //var_dump('1');
-          // array_push($product_image_array, $products->product_image);          
-          // array_push($product_type_array, $products->prod_type);          
-          // array_push($product_name_array, $products->prod_name);          
-          // array_push($product_color_array, $products->prod_color);          
-          // array_push($prod_name_color_id_array, $products->prod_name_color_id);
+        
+        if(count(DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->get()) > 0){     
+          
           $prod_name = DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->first()->prod_name;
           $product_image = DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->first()->product_image;
           $prod_type = DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->first()->prod_type;
@@ -65,31 +59,15 @@
             'prod_color' => $prod_color,
             'isUsed' => true,
         ]);
-          // break;          
+               
         }
-        else{
-          // array_push($product_image_array, $products->product_image);          
-          // array_push($product_type_array, $products->prod_type);          
-          // array_push($product_name_array, $products->prod_name);          
-          // array_push($product_color_array, $products->prod_color);          
-          // array_push($prod_name_color_id_array, $products->prod_name_color_id);
-        }        
+            
       }
+      $index = $index + 1;
     }
-    //dd($product_color_array);
-    // DB::table('home_products_queue')->truncate();
-    // for($i = 0; $i < count($prod_name_color_id_array); $i++){
-    //   DB::table('home_products_queue')->insert([
-    //     'prod_name_color_id' => $prod_name_color_id_array[$i],
-    //     'prod_name' => $product_name_array[$i],
-    //     'prod_type' => $product_type_array[$i],
-    //     'product_image' => $product_image_array[$i],
-    //     'prod_color' => $product_color_array[$i], 
-    //     'isUsed' => true,       
-    // ]);
-    // }
+    
     $home_products = DB::table('home_products_queue')->orderBy('prod_name_color_id', 'asc')->simplePaginate(9);
-    //dd($carousel_images);
+   
 @endphp
     @if (session()->has('error'))
         <div style="color:red;">{{ session('error') }}</div>

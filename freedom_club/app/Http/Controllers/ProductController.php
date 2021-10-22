@@ -29,8 +29,8 @@ class ProductController extends Controller
             foreach (Product::all() as $product) {
                 if (
                     strtolower($request->product_name) == strtolower($product->prod_name) && $request->product_type == $product->prod_type
-                    && $request->product_size == $product->prod_size && $request->product_size == $product->prod_size
-                    && $request->product_price == $product->prod_price && $request->product_price == $product->prod_price
+                    && $request->product_size == $product->prod_size
+                    //&& $request->product_price == $product->prod_price
                     && $request->product_color == $product->prod_color
                 ) {
                     $validate = false;

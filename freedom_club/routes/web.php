@@ -425,6 +425,7 @@ Route::get('/shop/{category}', function ($category) {
             if (
                 $product->prod_name == $prod_name_color->prod_name && $product->prod_type == $prod_name_color->prod_type
                 && $product->prod_color == $prod_name_color->prod_color && $product->prod_qty > 0
+                && DB::table('home_products_queue')->where('prod_name', $product->prod_name)->where('prod_type', $product->prod_type)->where('prod_color', $product->prod_color)->first() === null
             ) {
                 $product_image = DB::table('product_images')->where('prod_name_color_id', $prod_name_color->id)->where('image_main', 1)->first()->product_image;
                 DB::table('home_products_queue')->insert([

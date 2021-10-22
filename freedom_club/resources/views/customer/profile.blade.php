@@ -70,7 +70,7 @@
                 <br>
                 @if (auth()->user()->customer->cust_address)
                 <label for="" style="color: white">Address:</label>                              
-                <input type="address" value="{{ auth()->user()->customer->cust_address }}" class="form-control" style="width: 250px" name="cust_address">   
+                <input type="address" value="{{ auth()->user()->customer->cust_address }}" class="form-control" style="width: 550px" name="cust_address">   
                 @else
                 <label for="" style="color: white">Address:</label>                              
                 <input type="address" value="" class="form-control" style="width: 250px" name="cust_address">  

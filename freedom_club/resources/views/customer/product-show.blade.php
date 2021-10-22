@@ -9,7 +9,7 @@
 
    <div style="width: 100%; height:80vh;position: relative; font-family: Bahnschrift">
     <div style="width: 95%; height:85%; display:flex; justify-content:center; margin:0 auto">
-        <div style="height: 100%; width:40%; ">
+        <div style="height: 100%; width:40%;" id="main_image">
             <img src="{{ asset('/storage/product_images/'. $product_image) }}" alt="" style="width: 100%; height:100%; border: 5px solid black;">
         </div>
         <div style="height: 100%; width:60%;">
@@ -99,6 +99,8 @@
    </div>
    <script>
        var images = document.querySelectorAll('.image')
+       console.log(images)
+       var main_image = document.getElementById('main_image')
        var prod_qty = document.getElementById('prod_qty')
        var subtotal = document.getElementById('subtotal')
        var price = document.getElementById('price')
@@ -113,6 +115,11 @@
            else{
             subtotal.value = price.value * prod_qty.value
            }
+       })
+       images.forEach(function(image){
+           image.addEventListener('click', function(){
+               main_image.firstElementChild.src = image.src
+           })
        })
    </script>
 @endsection

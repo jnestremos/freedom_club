@@ -21,7 +21,6 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
 
-
         $requestUri = explode('/', $request->getRequestUri());
         $currentUri = $requestUri[count($requestUri) - 1];
         if (auth()->user()->hasRole('customer')) {

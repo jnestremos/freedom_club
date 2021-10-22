@@ -22,7 +22,7 @@
             $product_image = DB::table('product_images')->where('prod_name_color_id', $product->id)->where('image_main', 1)->first();            
         @endphp       
         <div class="col-4" style="display:flex; justify-content:center; margin-bottom:10px">
-            <div class="card" style="width: 17rem">
+            <div class="card" style="width: 14rem">
                 @if ($product_image == null)
                 <img src="{{ asset('storage/product_images/no-image.jpg') }}" alt="" srcset="" width="100%">          
                 @else
