@@ -421,7 +421,7 @@ Route::get('/shop/{category}', function ($category) {
     $products = Product::where('prod_status', true)->where('prod_qty', '>', '0')->orderBy('prod_size', 'asc')->get();
     $product_images = DB::table('product_images')->get();
     foreach ($products as $product) {
-        foreach ($prod_name_colors as $prod_name_color) {
+        foreach ($prod_name_colors as $index => $prod_name_color) {
             if (
                 $product->prod_name == $prod_name_color->prod_name && $product->prod_type == $prod_name_color->prod_type
                 && $product->prod_color == $prod_name_color->prod_color && $product->prod_qty > 0
@@ -438,31 +438,26 @@ Route::get('/shop/{category}', function ($category) {
             }
         }
     }
-    // $product_image_array = [];
-    // $product_type_array = [];
-    // $product_name_array = [];
-    // $product_color_array = [];
-    // $prod_name_color_id_array = [];
-    // foreach (DB::table('home_products_queue')->get() as $index => $products) {
-    //     for ($i = $index; $i < count(DB::table('home_products_queue')->get()); $i++) {
-    //         if (count(DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->get()) > 1) {
-    //             $prod_name = DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->first()->prod_name;
-    //             $product_image = DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->first()->product_image;
-    //             $prod_type = DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->first()->prod_type;
-    //             $prod_color = DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->first()->prod_color;
-    //             $prod_name_color_id = DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->first()->prod_name_color_id;
-    //             DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->delete();
-    //             DB::table('home_products_queue')->insert([
-    //                 'prod_name_color_id' => $prod_name_color_id,
-    //                 'prod_name' => $prod_name,
-    //                 'prod_type' => $prod_type,
-    //                 'product_image' => $product_image,
-    //                 'prod_color' => $prod_color,
-    //                 'isUsed' => true,
-    //             ]);
-    //         }
-    //     }
-    // }
+    foreach (DB::table('home_products_queue')->get() as $index => $products) {
+        for ($i = $index; $i < count(DB::table('home_products_queue')->get()); $i++) {
+            if (count(DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->get()) > 1) {
+                $prod_name = DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->first()->prod_name;
+                $product_image = DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->first()->product_image;
+                $prod_type = DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->first()->prod_type;
+                $prod_color = DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->first()->prod_color;
+                $prod_name_color_id = DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->first()->prod_name_color_id;
+                DB::table('home_products_queue')->where('prod_name_color_id', $products->prod_name_color_id)->delete();
+                DB::table('home_products_queue')->insert([
+                    'prod_name_color_id' => $prod_name_color_id,
+                    'prod_name' => $prod_name,
+                    'prod_type' => $prod_type,
+                    'product_image' => $product_image,
+                    'prod_color' => $prod_color,
+                    'isUsed' => true,
+                ]);
+            }
+        }
+    }
     if ($category == 'Accessories') {
         $home_products = DB::table('home_products_queue')->whereIn('prod_type', ['Hat', 'Bag'])->orderBy('prod_name_color_id', 'asc')->simplePaginate(9);
     } else {

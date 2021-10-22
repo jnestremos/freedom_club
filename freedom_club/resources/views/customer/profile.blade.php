@@ -32,6 +32,12 @@
         @error ('cust_email')
             <li>{{ $message }}</li>
         @enderror            
+        @error ('cust_address')
+            <li>{{ $message }}</li>
+        @enderror            
+        @error ('cust_phoneNum')
+            <li>{{ $message }}</li>
+        @enderror            
         @error ('cust_birthDate')
             <li>{{ $message }}</li>
         @enderror

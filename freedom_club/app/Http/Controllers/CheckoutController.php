@@ -173,6 +173,7 @@ class CheckoutController extends Controller
     public function update(Request $request, $invoice_number)
     {
         if ($request->setStatus == 'false') {
+            $checkout = Checkout::where('invoice_number', $invoice_number)->first();
             $setStatus = false;
             foreach (Cart::where('checkout_id', Checkout::where('invoice_number', $invoice_number)->first()->id)->get() as $item) {
                 $qty = Product::find($item->product_id)->prod_qty;
@@ -181,6 +182,7 @@ class CheckoutController extends Controller
                     'prod_status' => true
                 ]);
             }
+            Mail::to(Customer::where('user_id', $checkout->user_id)->first()->cust_email)->send(new ReceiptOrder($checkout, 'Sorry, your request has been rejected due to following reasons:'));
         } else {
             $this->validate($request, [
                 'tracking_number' => 'required',

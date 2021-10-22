@@ -103,6 +103,11 @@
                 '{{ $product->id }}',
             @endforeach
         ]
+        var prod_NameArray = [
+            @foreach($dataCollections[1] as $product)
+                '{{ $product->prod_name }}',
+            @endforeach
+        ]
         var prod_NumberArray = [
             @foreach($dataCollections[1] as $product)
                 '{{ $product->product_number }}',
@@ -231,7 +236,7 @@
             for(var i = 0; i < prod_IDArray.length; i++){
                 if(prod_typeArray[i] == stock_type.value && prod_colorArray[i] == stock_color.value && prod_sizeArray[i] == stock_size.value){
                     var option = document.createElement('option');
-                    var optionTextNode = document.createTextNode(prod_NumberArray[i])
+                    var optionTextNode = document.createTextNode(prod_NameArray[i])
                     option.value = prod_IDArray[i]
                     option.appendChild(optionTextNode)
                     prod_id.appendChild(option)                    

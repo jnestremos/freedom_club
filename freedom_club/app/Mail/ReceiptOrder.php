@@ -28,27 +28,36 @@ class ReceiptOrder extends Mailable
     public $address;
     public $invoice_num;
     public $color;
+    public $msg = null;
+    public $name;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($checkout)
+    public function __construct($checkout, $message = null)
     {
-        $this->color = new ColorInterpreter();
         $this->checkout = $checkout;
-        $this->email = Customer::where('user_id', $checkout->user_id)->first()->cust_email;
-        $this->address = Customer::where('user_id', $checkout->user_id)->first()->cust_address;
-        $this->invoice_num = $checkout->invoice_number;
-        $this->total = $checkout->total;
-        foreach (Cart::where('checkout_id', $checkout->id)->get() as $item) {
-            array_push($this->product_ids, $item->product_id);
-            array_push($this->product_qtys, $item->quantity);
-            $prod_name_color_id = DB::table('prod_name_color')->where('product_id', $item->product_id)->first()->id;
-            $image = DB::table('product_images')->where('prod_name_color_id', $prod_name_color_id)->first()->product_image;
-            array_push($this->images, $image);
-            array_push($this->items, Product::find($item->product_id)->prod_name . '-' . $this->color->name(Product::find($item->product_id)->prod_color)['name']);
-            array_push($this->subtotals, $item->subtotal);
+        //dd($message != null);
+        if ($message != null) {
+            $this->msg = $message;
+            $this->invoice_num = $checkout->invoice_number;
+            $this->name = Customer::where('user_id', $checkout->user_id)->first()->cust_firstName . ' ' . Customer::where('user_id', $checkout->user_id)->first()->cust_lastName;
+        } else {
+            $this->color = new ColorInterpreter();
+            $this->email = Customer::where('user_id', $checkout->user_id)->first()->cust_email;
+            $this->address = Customer::where('user_id', $checkout->user_id)->first()->cust_address;
+            $this->invoice_num = $checkout->invoice_number;
+            $this->total = $checkout->total;
+            foreach (Cart::where('checkout_id', $checkout->id)->get() as $item) {
+                array_push($this->product_ids, $item->product_id);
+                array_push($this->product_qtys, $item->quantity);
+                $prod_name_color_id = DB::table('prod_name_color')->where('product_id', $item->product_id)->first()->id;
+                $image = DB::table('product_images')->where('prod_name_color_id', $prod_name_color_id)->first()->product_image;
+                array_push($this->images, $image);
+                array_push($this->items, Product::find($item->product_id)->prod_name . '-' . $this->color->name(Product::find($item->product_id)->prod_color)['name']);
+                array_push($this->subtotals, $item->subtotal);
+            }
         }
     }
     /**

@@ -37,7 +37,7 @@
 
                     </div>
                     <input type="number" hidden value="{{ $subtotal + 500 }}" name="subtotal">
-                    <button type="button" class="btn btn-secondary">Continue Shopping</button>
+                    <a href="{{ route('shop') }}"><button type="button" class="btn btn-secondary">Continue Shopping</button></a>
                     <button type="submit" class="btn btn-success">Checkout</button>
                 </form>
             </div>

@@ -56,7 +56,7 @@ class ProductController extends Controller
                 // $path = $request->file('product_image')->storeAs('public/product_images', $fileNameToStore);
 
 
-                if (DB::table('prod_name_color')->where('prod_color', $product->prod_color)->where('prod_type', $product->prod_type)->first() == null) {
+                if (DB::table('prod_name_color')->where('prod_name', $product->prod_name)->where('prod_color', $product->prod_color)->where('prod_type', $product->prod_type)->first() == null) {
                     DB::table('prod_name_color')->insert([
                         'product_id' => $product->id,
                         'prod_name' => $product->prod_name,
@@ -136,6 +136,7 @@ class ProductController extends Controller
 
     public function delete($id)
     {
+        //dd(DB::table('prod_name_color')->where('prod_type', Product::find($id)->prod_type)->first()->id);
         $prod_name_color_id = DB::table('prod_name_color')->where('prod_name', Product::find($id)->prod_name)->where('prod_color', Product::find($id)->prod_color)->where('prod_type', Product::find($id)->prod_type)->first()->id;
         if (DB::table('product_images')->where('prod_name_color_id', $prod_name_color_id)->where('product_image', 'no-image.jpg')->first() == null) {
             //$product_image = DB::table('product_images')->where('product_id', $id)->first()->product_image;
@@ -149,7 +150,20 @@ class ProductController extends Controller
     public function show($type, $name, $color, $size)
     {
         $product = DB::table('home_products_queue')->where('prod_name', $name)->where('prod_type', $type)->where('prod_color', '#' . $color)->first();
+        if (str_contains(url()->previous(), 'show')) {
+            $previousUrl = url()->previous();
+            $previousUrlColor = explode('/', $previousUrl)[9];
+            if ($previousUrlColor != $color) {
+                $size = Product::where('prod_type', $type)->where('prod_name', $name)->where('prod_color', '#' . $color)->where('prod_qty', '>', 0)->orderBy('prod_size', 'asc')->first()->prod_size;
+                return view('customer.product-show', ['product' => Product::where('prod_type', $type)->where('prod_name', $name)->where('prod_color', '#' . $color)->where('prod_qty', '>', 0)->where('prod_size', $size)->orderBy('prod_size', 'asc')->first(), 'prod_name_color_id' => $product->prod_name_color_id, 'product_image' => $product->product_image]);
+            } else {
+                return view('customer.product-show', ['product' => Product::where('prod_type', $type)->where('prod_name', $name)->where('prod_color', '#' . $color)->where('prod_qty', '>', 0)->where('prod_size', $size)->orderBy('prod_size', 'asc')->first(), 'prod_name_color_id' => $product->prod_name_color_id, 'product_image' => $product->product_image]);
+            }
+        } else {
+            return view('customer.product-show', ['product' => Product::where('prod_type', $type)->where('prod_name', $name)->where('prod_color', '#' . $color)->where('prod_qty', '>', 0)->where('prod_size', $size)->orderBy('prod_size', 'asc')->first(), 'prod_name_color_id' => $product->prod_name_color_id, 'product_image' => $product->product_image]);
+        }
+
         // dd(Product::where('prod_type', $type)->where('prod_name', $name)->where('prod_color', '#' . $color)->where('prod_qty', '>', 0)->orderBy('prod_size', 'asc')->first());
-        return view('customer.product-show', ['product' => Product::where('prod_type', $type)->where('prod_name', $name)->where('prod_color', '#' . $color)->where('prod_qty', '>', 0)->where('prod_size', $size)->orderBy('prod_size', 'asc')->first(), 'prod_name_color_id' => $product->prod_name_color_id, 'product_image' => $product->product_image]);
+
     }
 }

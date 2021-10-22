@@ -24,12 +24,12 @@
                             <div style="display: flex; justify-content:space-around; margin-left:50px; margin-top:5px">
                                 @foreach (DB::table('prod_name_color')->where('prod_name', $product->prod_name)->get() as $item)                                
                                     @if ($item->prod_color == $product->prod_color)
-                                    <a style="width: 80px; height:40px; background-color:white; border:2px solid black; margin-right:10px; padding:5px;" href="{{ url('/'.$product->prod_type.'/'.$product->prod_name.'/'.explode('#',$item->prod_color)[1].'/'.$product->prod_size) }}">
+                                    <a style="width: 80px; height:40px; background-color:white; border:2px solid black; margin-right:10px; padding:5px;" href="{{ url('/show/'.$product->prod_type.'/'.$product->prod_name.'/'.explode('#',$item->prod_color)[1].'/'.$product->prod_size) }}">
                                         <div style="width: 100%; height:100%; background-color: {{ $product->prod_color }}">                                        
                                         </div>
                                     </a> 
                                     @else
-                                    <a style="width: 80px; height:40px; background-color:{{ $item->prod_color }}; border:2px solid black; margin-right:10px;" href="{{ url('/'.$product->prod_type.'/'.$product->prod_name.'/'.explode('#',$item->prod_color)[1].'/'.$product->prod_size) }}"></a>
+                                    <a style="width: 80px; height:40px; background-color:{{ $item->prod_color }}; border:2px solid black; margin-right:10px;" href="{{ url('/show/'.$product->prod_type.'/'.$product->prod_name.'/'.explode('#',$item->prod_color)[1].'/'.$product->prod_size) }}"></a>
                                     @endif
                                 @endforeach
                             </div>                            
@@ -43,9 +43,9 @@
                         <div style=" margin-left:50px; width:40%; display:flex; flex-wrap:wrap; margin-top:15px">
                             @foreach (Product::where('prod_name', $product->prod_name)->where('prod_type', $product->prod_type)->where('prod_color', $product->prod_color)->orderBy('prod_size', 'asc')->get() as $item)
                             @if ($item->prod_size == $product->prod_size)
-                            <a style="margin-right:30px; color:black" href="{{ url('/'.$product->prod_type.'/'.$product->prod_name.'/'.explode('#',$product->prod_color)[1].'/'.$item->prod_size) }}">{{ $item->prod_size }}</a>                                                            
+                            <a style="margin-right:30px; color:black" href="{{ url('/show/'.$product->prod_type.'/'.$product->prod_name.'/'.explode('#',$product->prod_color)[1].'/'.$item->prod_size) }}">{{ $item->prod_size }}</a>                                                            
                             @else   
-                            <a style="margin-right:30px; color:blue" href="{{ url('/'.$product->prod_type.'/'.$product->prod_name.'/'.explode('#',$product->prod_color)[1].'/'.$item->prod_size) }}">{{ $item->prod_size }}</a>                                                                                                                   
+                            <a style="margin-right:30px; color:blue" href="{{ url('/show/'.$product->prod_type.'/'.$product->prod_name.'/'.explode('#',$product->prod_color)[1].'/'.$item->prod_size) }}">{{ $item->prod_size }}</a>                                                                                                                   
                             @endif
                             @endforeach
                             {{-- <a style="margin-right:30px" href="">asd</a>

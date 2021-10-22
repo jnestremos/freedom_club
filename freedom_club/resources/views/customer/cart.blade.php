@@ -13,7 +13,7 @@
     }
     foreach(Cart::where('user_id', auth()->user()->id)->where('pending', null)->simplePaginate(2) as $cart_item){
         $product = Product::find($cart_item->product_id);  
-        $image = DB::table('home_products_queue')->where('prod_name', $product->prod_name)->where('prod_type', $product->prod_type)->first()->product_image;
+        $image = DB::table('home_products_queue')->where('prod_name', $product->prod_name)->where('prod_type', $product->prod_type)->where('prod_color', $product->prod_color)->first()->product_image;
         array_push($images, $image);        
     }  
     $items = Cart::where('user_id', auth()->user()->id)->where('pending' , null)->simplePaginate(2);     
@@ -74,7 +74,7 @@
             <div style="display: flex; align-items:center; justify-content:space-between">
                 <div style="display:flex">
                    <a href="{{ route('checkout.index') }}"><button type="button" class="btn btn-dark" style="margin-right:20px; width:200px; height:50px">Checkout</button></a>
-                    <button type="button" class="btn btn-secondary" style="width:200px; height:50px">Continue Shopping</button>                
+                    <a href="{{ route('shop') }}"><button type="button" class="btn btn-secondary" style="width:200px; height:50px">Continue Shopping</button></a>              
                 </div>
                 <div>
                     {{ $items->links() }}

@@ -193,7 +193,16 @@
                 <td>{{ $employee->emp_lastName }}</td>                        
                 <td>{{ $employee->emp_email }}</td>                        
                 <td>{{ $employee->emp_gender }}</td>                        
-                <td>{{ $employee->emp_birthDate }}</td>                                       
+                <td>{{ $employee->emp_birthDate }}</td>   
+                <td>
+                @if ($employee->user->hasRole('store_owner'))
+                    STORE OWNER
+                @elseif($employee->user->hasRole('warehouse_manager'))
+                    WAREHOUSE MANAGER
+                @else
+                    PRODUCT MANAGER
+                @endif    
+                </td>                                    
                 <td>{{ $employee->created_at }}</td>                                       
                 <td>{{ $employee->updated_at }}</td>                                       
             </tr> 
@@ -849,7 +858,7 @@
                             <input type="text" name="user_id" value="{{ $product->id }}" hidden>   
                         </form>
                         {{ $product->product_number }}
-                    @elseif($product->prod_qty > 0)
+                    @elseif($product->prod_status == 0 && $product->prod_qty > 0)
                     <td style="display:flex; align-items:center">
                     <form action="{{ url('/dashboard/products/'.$product->id) }}" method="POST">
                             @csrf
@@ -858,6 +867,9 @@
                             <input type="text" name="user_id" value="{{ $product->id }}" hidden>   
                     </form>                        
                         <a href="" style="text-align: center" id="dataID" data-bs-toggle="modal" data-bs-target="{{ '#id'.$product->id }}">{{ $product->product_number }}</a>
+                    @elseif($product->prod_status == 1 && $product->prod_qty > 0)
+                        <td style="justify-content: center">
+                            <a href="" style="text-align: center" id="dataID" data-bs-toggle="modal" data-bs-target="{{ '#id'.$product->id }}">{{ $product->product_number }}</a>
                     @endif
                     </td>
                                                                                           

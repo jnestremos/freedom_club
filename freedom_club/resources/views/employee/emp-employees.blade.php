@@ -11,7 +11,7 @@
         $roles = DB::table('roles')->get();    
         $role_users = DB::table('role_user')->get();         
         $employeeData = Employee::all();                      
-        $headers = ['Employee ID', 'First Name', 'Last Name', 'Email', 'Gender', 'Birthdate', 'Created At', 'Updated At'];             
+        $headers = ['Employee ID', 'First Name', 'Last Name', 'Email', 'Gender', 'Birthdate', 'Position', 'Created At', 'Updated At'];             
     @endphp
 
     <div style="display: flex; align-items:center; justify-content:space-between; width:100%; height: 6%;">

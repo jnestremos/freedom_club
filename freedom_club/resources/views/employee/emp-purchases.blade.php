@@ -333,7 +333,7 @@
                     label1.setAttribute('for', 'material_id' + counter)
                     label1.className = 'form-label text-white'
                     label1.style.marginRight = '60px'
-                    var label1TextNode = document.createTextNode('Material ID: ')
+                    var label1TextNode = document.createTextNode('Material Number: ')
                     label1.appendChild(label1TextNode)
                     div1.appendChild(label1)
 
@@ -341,7 +341,7 @@
                     select.id = 'material_id' + counter
                     select.name = 'material_id' + counter
                     select.className = 'form-select material_id' 
-                    select.style.width = '100px'
+                    select.style.width = '200px'
                     var checker = 0
                     // console.log('materialIDArray :' + materialIDArray)
                     // console.log('supplierIDArray :' + supplierIDArray)

@@ -22,14 +22,14 @@
             $product_image = DB::table('product_images')->where('prod_name_color_id', $product->id)->where('image_main', 1)->first();            
         @endphp       
         <div class="col-4" style="display:flex; justify-content:center; margin-bottom:10px">
-            <div class="card" style="width: 22rem">
+            <div class="card" style="width: 17rem">
                 @if ($product_image == null)
                 <img src="{{ asset('storage/product_images/no-image.jpg') }}" alt="" srcset="" width="100%">          
                 @else
                 <img src="{{ asset('storage/product_images/'. $product_image->product_image) }}" alt="" srcset="" width="100%">          
                 @endif
                 <div class="card-body" style="display: flex; justify-content: space-between; align-items:center">
-                  <p class="card-text">{{ $product->prod_name ." - ". $color->name($product->prod_color)['name']}}</p>  
+                  <p class="card-text">{{ $product->prod_name ." - ". $product->prod_type . ' - '.$color->name($product->prod_color)['name']}}</p>  
                   <a href="{{ url('/dashboard/product/images/'. $product->id) }}"><button class="btn btn-success">Edit Images</button></a>
                 </div>
               </div>              

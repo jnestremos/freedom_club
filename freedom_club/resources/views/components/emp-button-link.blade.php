@@ -178,19 +178,22 @@
                                 <label for="username" class="form-label text-white" style="margin-right: 20px">Username: </label>                            
                                 <input type="text" class="form-control" placeholder="Username" name="username">
                             </div>
+                            <br>
                             <div style="display: flex">
                                 <label for="email" class="form-label text-white" style="margin-right: 20px">Email: </label>  
                                 <input type="email" class="form-control" placeholder="Email" name="email">
                             </div>
+                            <br>
                            <div style="display: flex">
                                 <label for="password" class="form-label text-white" style="margin-right: 20px">Password: </label>                             
                                 <input type="password" class="form-control" placeholder="Password" name="password">
                            </div>
+                           <br>
                             <div style="display: flex">
                                 <label for="password_confirmation" class="form-label text-white" style="margin-right: 20px">Confirm Password: </label>  
                                 <input type="password" class="form-control" placeholder="Confirm Password" name="password_confirmation">
                             </div>
-                            
+                            <br>                            
                         </div>                
                     </div>
                     <div class="modal-footer">
@@ -230,19 +233,19 @@
                                 <button class="btn btn-secondary" style="width:40%; height:100%" id="clear_item" disabled>Clear Addtional Items</button>
                             </div>                   
                             <div style="display: flex; align-items:center; margin-top:20px">
-                                <label for="supplier_id" class="form-label text-white" style="margin-right:60px">Supplier ID: </label> 
-                                <select id="supplier_id" name="supplier_id" class="form-select" style="width: 100px;" >
+                                <label for="supplier_id" class="form-label text-white" style="margin-right:60px">Supplier Name: </label> 
+                                <select id="supplier_id" name="supplier_id" class="form-select" style="width: 200px;" >
                                     <option value="" disabled hidden selected>None</option>                                    
                                     @foreach ($dataCollection[1] as $supplier)
                                         @if ($supplier->material->first())
-                                            <option value="{{ $supplier->id }}">{{ $supplier->id }}</option>
+                                            <option value="{{ $supplier->id }}">{{ $supplier->supp_name }}</option>
                                         @endif                                                                                                                                                                  
                                     @endforeach                                                                      
                                 </select>
                             </div>                   
                             <div style="display: flex; align-items:center; margin-top:20px;">                                
                                 <label for="material_id" class="form-label text-white" style="margin-right:60px">Material Number: </label>                                 
-                                <select id="material_id" name="material_id" class="form-select" style="width: 100px;" >
+                                <select id="material_id" name="material_id" class="form-select" style="width: 200px;" >
                                     <option value ="" disabled selected>None</option>                                     
                                 </select>                                
                             </div>       
@@ -316,13 +319,13 @@
                         <div style="height: 100%; width:100%; display:flex; flex-direction:column; justify-content:space-around;">
                             <div style="height:100%; width:100%; display: flex; align-items:center;">
                                 <label style="width: 140px" for="stock_id" class="form-label text-white">Stock Number: </label>
-                                <select id="stock_id" name="stock_id" class="form-select" style="width: 100px;" >
+                                <select id="stock_id" name="stock_id" class="form-select" style="width: 200px;" >
                                     <option value="None" disabled hidden selected>None</option>                                    
                                 </select>
                             </div> 
                             <div style="height:100%; width:100%; display: flex; align-items:center;">
-                                <label style="width: 140px" for="product_id" class="form-label text-white">Product Number: </label>
-                                <select id="product_id" disabled name="product_id" class="form-select" style="width: 100px;" >
+                                <label style="width: 140px" for="product_id" class="form-label text-white">Product Name: </label>
+                                <select id="product_id" disabled name="product_id" class="form-select" style="width: 200px;" >
                                     <option value="None" disabled hidden selected>None</option>                                    
                                 </select>
                             </div> 
