@@ -27,7 +27,7 @@ class DashboardController extends Controller
             return redirect()->route('home');
         } else {
             if (
-                $currentUri == 'home' && Carbon::now()->day == 3 && count(Expense::all()) != 0
+                $currentUri == 'home' && Carbon::now()->day == 22 && count(Expense::all()) != 0
                 && count(DB::table('sales')->where('deleted_at', null)->get()) != 0
             ) {
                 $exp_description = [];

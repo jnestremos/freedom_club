@@ -23,7 +23,7 @@
         <div style="width:90%; height:90%; display:flex; padding-top:30px">
             <form method="POST" action="{{ route('customer.updateReturn') }}" style="width:60%; position: relative;" enctype="multipart/form-data">
                 @csrf
-                <h1 style="color: white">RETURN FORM</h1>
+                <h1 style="color: white">REFUND FORM</h1>
                 <label for="" style="color: white">Receipt Number:</label>
                 <div style="display:flex; justify-content:space-between; align-items:center">
                     <input type="text" name="receipt_number" class="form-control" style="width: 200px">                    
@@ -105,7 +105,7 @@
                     Need Help?
                 </h6>
                 <a href="{{ route('customer.return') }}" style="text-decoration: none"><h6 id="return" style="color: white">
-                    Return & Refund
+                    Refund
                 </h6></a>
                 <h6 style="color: white">
                     Products

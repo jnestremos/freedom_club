@@ -59,8 +59,8 @@
                 $routeNames = ['dashboard.home', 'dashboard.suppliers', 'dashboard.employees', 'dashboard.stocks', 'dashboard.products', 
                 'dashboard.shipments', 'dashboard.sales', 'dashboard.expenses', 'dashboard.balance', 'dashboard.orders', 'dashboard.transfer', 
                 'dashboard.purchases',] ;
-                $pages = ['Home', 'Supplier Profiles', 'Employee Profiles', 'Stock Inventory', 'Product Inventory', 'Shipments', 'Sales', 
-                'Expenses', 'Balance Sheet', 'Order Line', 'Stock Transfer Requests', 'Supplier Purchase Records'];
+                $pages = ['Home', 'Supplier Profiles', 'Employee Profiles', 'Raw Materials Inventory', 'Finished Products Inventory', 'Shipments', 'Sales', 
+                'Expenses', 'Balance Sheet', 'Orders', 'Stock Transfer Requests', 'Supplier Purchase Records'];
             @endphp
             @for ($i = 0; $i < count($routeNames); $i++)
                 <a style="text-decoration:none; font-family:Bahnschrift" href="{{ route($routeNames[$i]) }}"> <x-emp-side-button page="{{ $pages[$i] }}" :selected="$selected"/> </a>

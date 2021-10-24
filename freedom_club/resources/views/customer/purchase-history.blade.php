@@ -69,7 +69,7 @@
                 Need Help?
             </h6>
             <a href="{{ route('customer.return') }}" style="text-decoration: none"><h6 id="return" style="color: white">
-                Return & Refund
+                Refund
             </h6></a>
             <h6 style="color: white">
                 Products

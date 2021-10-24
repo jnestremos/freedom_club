@@ -15,7 +15,7 @@ class CustomerReturn extends Mailable
 
     public $salesReturn;
     public $name;
-    public $message;
+    public $msg;
     /**
      * Create a new message instance.
      *
@@ -27,9 +27,9 @@ class CustomerReturn extends Mailable
         $user_id = Checkout::where('receipt_number', $salesReturn->receipt_number)->first()->user_id;
         $this->name = Customer::where('user_id', $user_id)->first()->cust_firstName . ' ' . Customer::where('user_id', $user_id)->first()->cust_lastName;
         if ($salesReturn->status == false) {
-            $this->message = 'rejected';
+            $this->msg = 'rejected';
         } else {
-            $this->message = 'accepted';
+            $this->msg = 'accepted';
         }
     }
 

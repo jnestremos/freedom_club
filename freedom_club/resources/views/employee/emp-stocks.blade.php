@@ -28,8 +28,8 @@
         @endphp
     @endif
 
-    <div style="display: flex; align-items:center; justify-content:space-between; width:35%; height: 6%;">
-        <x-emp-header title="STOCK INVENTORY"></x-emp-header>                       
+    <div style="display: flex; align-items:center; justify-content:space-between; width:50%; height: 6%;">
+        <x-emp-header title="RAW MATERIALS INVENTORY"></x-emp-header>                       
         {{-- <x-emp-button-link title="View All Transactions" link="{{ route('dashboard.purchases') }}"></x-emp-button-link> --}}
         <div id="stock_transfer">
             <x-emp-button-link title="Request Stock Transfer" :disabled='$disabled' toggle='true' target='requestStockTransfer' :dataCollection="$dataCollections"></x-emp-button-link>        

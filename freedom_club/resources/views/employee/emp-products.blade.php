@@ -49,7 +49,7 @@
         }
     @endphp
     <div style="display: flex; align-items:center; justify-content:space-between; width:70%; height: 6%;">
-        <x-emp-header title="PRODUCT INVENTORY"></x-emp-header>                       
+        <x-emp-header title="FINISHED PRODUCTS INVENTORY"></x-emp-header>                       
         {{-- <x-emp-button-link title="View All Transactions" link="{{ route('dashboard.purchases') }}"></x-emp-button-link> --}}
         <x-emp-button-link title="Add New Product" toggle='true' target='addProduct' :dataCollection="$dataCollections"></x-emp-button-link>        
         <x-emp-button-link title="View Product Images" :disabled='$disabled' link="{{ route('product.images') }}" :dataCollection="$dataCollections"></x-emp-button-link>        
